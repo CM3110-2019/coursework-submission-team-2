@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.example.moodvie.MainActivity" >
+        <activity android:name="com.example.moodvie.create_account" />
+        <activity android:name="com.example.moodvie.login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
