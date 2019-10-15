@@ -10,4 +10,7 @@
     <string name="prompt_password">Password</string>
     <string name="create_account_button">Create Your Account</string>
     <string name="image_description">Moodvie Logo</string>
+    <string name="title_activity_face_scan">faceScan</string>
+    <string name="take_picture_button">Take Picture</string>
+    <string name="scan_header">Mood Scanner</string>
 </resources>
