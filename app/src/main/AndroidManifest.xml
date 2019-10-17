@@ -12,19 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".faceScan"
-            android:label="@string/title_activity_face_scan"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".create_account" />
-        <activity android:name=".login">
-
+        <activity android:name=".face_scan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".create_account" />
+        <activity android:name=".login"/>
+
     </application>
 
 </manifest>
