@@ -20,7 +20,7 @@ public class login extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                startActivity(new Intent(getBaseContext(), create_account.class));
+                startActivity(new Intent(getBaseContext(), face_scan.class));
             }
         });
     }

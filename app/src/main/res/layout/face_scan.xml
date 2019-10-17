@@ -9,7 +9,7 @@
 
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/takePicture"
         android:layout_width="369dp"
         android:layout_height="63dp"
         android:layout_marginBottom="16dp"
@@ -20,7 +20,7 @@
 
 
     <ImageView
-        android:id="@+id/moodvieLogo"
+        android:id="@+id/camera"
         android:layout_width="419dp"
         android:layout_height="604dp"
         android:layout_marginTop="48dp"
