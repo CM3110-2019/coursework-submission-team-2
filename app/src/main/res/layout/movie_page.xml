@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/purple"
+    tools:context=".moviePage">
+
+    <ImageButton
+        android:id="@+id/btnStar5"
+        style="@android:style/Widget.Holo.ImageButton"
+        android:layout_width="48dp"
+        android:layout_height="52dp"
+        android:background="@color/purple"
+        android:src="@android:drawable/btn_star_big_off"
+        tools:layout_editor_absoluteX="207dp"
+        tools:layout_editor_absoluteY="382dp" />
+
+    <ImageButton
+        android:id="@+id/btnStar1"
+        style="@android:style/Widget.Holo.ImageButton"
+        android:layout_width="48dp"
+        android:layout_height="52dp"
+        android:background="@color/purple"
+        android:src="@android:drawable/btn_star_big_off"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="382dp" />
+
+    <ImageButton
+        android:id="@+id/btmStar3"
+        style="@android:style/Widget.Holo.ImageButton"
+        android:layout_width="48dp"
+        android:layout_height="52dp"
+        android:background="@color/purple"
+        android:src="@android:drawable/btn_star_big_off"
+        tools:layout_editor_absoluteX="112dp"
+        tools:layout_editor_absoluteY="382dp" />
+
+    <ImageButton
+        android:id="@+id/btnStar4"
+        style="@android:style/Widget.Holo.ImageButton"
+        android:layout_width="48dp"
+        android:layout_height="52dp"
+        android:background="@color/purple"
+        android:src="@android:drawable/btn_star_big_off"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="382dp" />
+
+    <TextView
+        android:id="@+id/tvLogo"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:text="              Moodvie"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textColor="@color/pinkpurple"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvMovieTitle"
+        android:layout_width="239dp"
+        android:layout_height="wrap_content"
+        android:text="Movie Title (201X)"
+        android:textColor="@color/light"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="350dp" />
+
+    <ImageButton
+        android:id="@+id/btnAddMovie"
+        style="@android:style/Widget.DeviceDefault.Light.ImageButton"
+        android:layout_width="46dp"
+        android:layout_height="45dp"
+        android:background="@color/purple"
+        android:scaleType="fitXY"
+        android:src="@android:drawable/ic_input_add"
+        tools:layout_editor_absoluteX="268dp"
+        tools:layout_editor_absoluteY="350dp" />
+
+    <ImageView
+        android:id="@+id/ivMovePoster"
+        android:layout_width="match_parent"
+        android:layout_height="292dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="58dp"
+        tools:src="@tools:sample/avatars[0]" />
+
+    <ImageButton
+        android:id="@+id/btnOwnMovie"
+        android:layout_width="30dp"
+        android:layout_height="33dp"
+        android:background="@color/purple"
+        android:scaleType="fitXY"
+        android:src="@android:drawable/checkbox_off_background"
+        tools:layout_editor_absoluteX="329dp"
+        tools:layout_editor_absoluteY="356dp" />
+
+    <ImageButton
+        android:id="@+id/btnStar2"
+        style="@android:style/Widget.Holo.ImageButton"
+        android:layout_width="48dp"
+        android:layout_height="52dp"
+        android:background="@color/purple"
+        android:src="@android:drawable/btn_star_big_off"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="382dp" />
+
+    <TextView
+        android:id="@+id/tvSynopsis"
+        android:layout_width="250dp"
+        android:layout_height="32dp"
+        android:text="Synopsis:"
+        android:textColor="@color/light"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="434dp" />
+
+    <TextView
+        android:id="@+id/tvMovieDesc"
+        android:layout_width="359dp"
+        android:layout_height="151dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam cursus sit amet risus et porttitor. Sed auctor fermentum enim, eget feugiat enim congue sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vehicula aliquam orci non aliquet. Integer mattis nisi sit amet aliquet aliquet. Sed venenatis turpis eu orci molestie mattis. Nulla vel velit sit amet quam pulvinar tempor nec vel sapien. Vestibulum luctus venenatis quam ut ultrices. Curabitur dapibus risus ut massa consequat, sed ultrices eros aliquam."
+        android:textColor="@color/light"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="460dp" />
+
+    <TextView
+        android:id="@+id/tvStarring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Starring:"
+        android:textColor="@color/light"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="611dp" />
+
+    <TextView
+        android:id="@+id/tvCast"
+        android:layout_width="289dp"
+        android:layout_height="56dp"
+        android:text="Some Bloke, Some Other Bloke, A Lady, Token POC, Other Rando Side Actors"
+        android:textColor="@color/light"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="635dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
