@@ -11,8 +11,7 @@
 
     <uses-feature android:name="android.hardware.camera" />
 
-    <uses-permission android:name="android.permission.CAMERA" >
-    </uses-permission>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -24,13 +23,12 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.example.moodvie.open_camera" />
-        <activity
-            android:name="com.example.moodvie.face_scan"
-            android:parentActivityName="com.example.moodvie.login" >
-        </activity>
-        <activity android:name="com.example.moodvie.create_account" />
-        <activity android:name="com.example.moodvie.login" >
+        <activity android:name="com.example.moodvie.OpenCamera" />
+        <activity android:name="com.example.moodvie.FaceScan" />
+        <activity android:name="com.example.moodvie.BarcodeScanner" />
+        <activity android:name="com.example.moodvie.HomeScreen" />
+        <activity android:name="com.example.moodvie.CreateAccount" />
+        <activity android:name="com.example.moodvie.LoginScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

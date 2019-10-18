@@ -17,7 +17,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 
-public class face_scan extends AppCompatActivity
+public class FaceScan extends AppCompatActivity
 {
     functions _functions = new functions();
     private ImageView mimageView;
@@ -27,7 +27,7 @@ public class face_scan extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.face_scan);
+        setContentView(R.layout.activity_face_scan);
         mimageView = findViewById(R.id.camera);
         getView(R.id.takePicture).setOnClickListener(new View.OnClickListener()
         {
@@ -38,7 +38,7 @@ public class face_scan extends AppCompatActivity
                 if(_functions.checkCameraHardware(getApplicationContext()))
                 {
                     if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-                        ActivityCompat.requestPermissions(face_scan.this, new String[]{Manifest.permission.CAMERA}, 1);
+                        ActivityCompat.requestPermissions(FaceScan.this, new String[]{Manifest.permission.CAMERA}, 1);
                     else
                         takePicture(view);
                 }
