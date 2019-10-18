@@ -6,7 +6,6 @@
         android:layout_height="match_parent"
         android:background="@color/purple"
         tools:context=".HomeScreen">
-
     <ScrollView
         android:id="@+id/scrollMainPage"
         android:layout_width="match_parent"
@@ -16,12 +15,11 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
-
             <EditText
                 android:id="@+id/etSearchMovie"
                 android:layout_width="212dp"
                 android:layout_height="46dp"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="250dp"
                 android:background="@color/white"
                 android:ems="10"
                 android:hint="Search for Movie"
@@ -40,7 +38,7 @@
                 app:layout_constraintRight_toLeftOf="@id/faceButton"
                 app:layout_constraintTop_toBottomOf="@id/etSearchMovie"
                 android:layout_marginTop="15dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="40dp"
                 tools:layout_editor_absoluteX="26dp"
                 tools:layout_editor_absoluteY="120dp" />
 
@@ -93,7 +91,7 @@
                 app:layout_constraintTop_toBottomOf="@id/scanButton"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="23dp"
-                android:layout_marginLeft="1dp"
+                android:layout_marginLeft="120dp"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="174dp"
                 android:src="@drawable/ic_launcher_background" />
@@ -103,7 +101,7 @@
                 android:layout_width="203dp"
                 android:layout_height="185dp"
                 android:layout_marginTop="100dp"
-                android:layout_marginLeft="1dp"
+                android:layout_marginLeft="120dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image1"
                 android:src="@drawable/ic_launcher_background" />
@@ -115,7 +113,7 @@
                 app:layout_constraintTop_toBottomOf="@id/scanButton"
                 app:layout_constraintLeft_toRightOf="@id/image1"
                 android:layout_marginTop="23dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="100dp"
                 tools:layout_editor_absoluteX="230dp"
                 tools:layout_editor_absoluteY="174dp"
                 android:src="@drawable/ic_launcher_background" />
@@ -125,7 +123,7 @@
                 android:layout_width="203dp"
                 android:layout_height="185dp"
                 android:layout_marginTop="100dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="100dp"
                 app:layout_constraintTop_toBottomOf="@id/image2"
                 app:layout_constraintLeft_toRightOf="@id/image3"
                 tools:layout_editor_absoluteX="230dp"
@@ -135,6 +133,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

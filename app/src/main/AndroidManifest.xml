@@ -15,10 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".open_camera"></activity>
-        <activity android:name=".face_scan" />
-        <activity android:name=".create_account" />
-        <activity android:name=".login">
+        <activity android:name=".OpenCamera"></activity>
+        <activity android:name=".FaceScan" />
+        <activity android:name=".CreateAccount" />
+        <activity android:name=".HomeScreen" />
+        <activity android:name=".LoginScreen">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

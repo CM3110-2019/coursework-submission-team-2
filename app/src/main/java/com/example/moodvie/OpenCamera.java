@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class open_camera extends AppCompatActivity
+public class OpenCamera extends AppCompatActivity
 {
 
 }

@@ -10,7 +10,6 @@ public class functions
     {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
-
     /** Check if this device has a camera */
     public boolean checkCameraHardware(Context context)
     {
