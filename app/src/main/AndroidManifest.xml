@@ -2,10 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.moodvie">
-
-    <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.CAMERA"> </uses-permission>
+
 
     <application
         android:allowBackup="true"
@@ -15,12 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".OpenCamera"></activity>
-        <activity android:name=".FaceScan" />
-        <activity android:name=".CreateAccount" />
-        <activity android:name=".HomeScreen" />
-        <activity android:name=".LoginScreen">
+        <activity android:name=".open_camera"></activity>
+        <activity android:name=".face_scan" android:parentActivityName=".login">
 
+        </activity>
+        <activity android:name=".create_account" />
+        <activity android:name=".login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

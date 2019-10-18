@@ -9,9 +9,10 @@
         android:minSdkVersion="15"
         android:targetSdkVersion="29" />
 
-    <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" >
+    </uses-permission>
 
     <application
         android:allowBackup="true"
@@ -24,7 +25,10 @@
         android:testOnly="true"
         android:theme="@style/AppTheme" >
         <activity android:name="com.example.moodvie.open_camera" />
-        <activity android:name="com.example.moodvie.face_scan" />
+        <activity
+            android:name="com.example.moodvie.face_scan"
+            android:parentActivityName="com.example.moodvie.login" >
+        </activity>
         <activity android:name="com.example.moodvie.create_account" />
         <activity android:name="com.example.moodvie.login" >
             <intent-filter>
@@ -33,6 +37,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="com.android.tools.ir.server.InstantRunContentProvider"
+            android:authorities="com.example.moodvie.com.android.tools.ir.server.InstantRunContentProvider"
+            android:multiprocess="true" />
     </application>
 
 </manifest>
