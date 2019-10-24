@@ -3,13 +3,20 @@ package com.example.moodvie;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.example.databases.users;
 
 public class LoginScreen extends AppCompatActivity implements View.OnClickListener
 {
     protected <T extends View> T getView(int id) { return super.findViewById(id); }
+    private final users userDatabase = new users(this);
+    private final functions _functions = new functions();
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -21,19 +28,16 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View view)
             {
-                startActivity(new Intent(getBaseContext(), FaceScan.class));
+                TextView username = getView(R.id.usernameInput);
+                TextView password = getView(R.id.passwordInput);
+
+                if(_functions.isBlank(username.getText().toString(), password.getText().toString(), null))
+                    _functions.createMessage(getApplicationContext(), "Blank");
+                else
+                    _functions.createMessage(getApplicationContext(), "Not blank");
+
+                //startActivity(new Intent(getBaseContext(), CreateAccount.class));
             }
         });
-
-        Button logInButton = findViewById(R.id.loginButton);
-        logInButton.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.loginButton){
-            Intent intent = new Intent(getApplicationContext(), HomeScreen.class);
-            startActivity(intent);
-        }
     }
 }

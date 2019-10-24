@@ -14,7 +14,7 @@
         android:layout_marginTop="120dp"
         android:contentDescription="@string/image_description"
         android:src="@drawable/ic_launcher_background"
-        app:layout_constraintEnd_toStartOf="@+id/emailInput2"
+        app:layout_constraintEnd_toStartOf="@+id/usernameInput"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
@@ -29,12 +29,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/emailInput2"
+        android:id="@+id/usernameInput"
         android:layout_width="366dp"
         android:layout_height="42dp"
         android:layout_marginTop="12dp"
         android:ems="10"
-        android:hint="@string/prompt_email"
+        android:hint="@string/prompt_username"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.739"
@@ -52,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.739"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailInput2" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameInput" />
 
     <Button
         android:id="@+id/takePictureButton"

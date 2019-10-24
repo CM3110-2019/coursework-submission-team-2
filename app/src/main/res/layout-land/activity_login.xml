@@ -9,13 +9,13 @@
 
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/emailInput"
+        android:id="@+id/usernameInput"
         android:layout_width="366dp"
         android:layout_height="41dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="88dp"
         android:layout_marginRight="88dp"
-        android:hint="@string/prompt_email"
+        android:hint="@string/prompt_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.885"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailInput2"
+        app:layout_constraintTop_toBottomOf="@+id/usernameInput"
         app:layout_constraintVertical_bias="0.0" />
 
 
@@ -43,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.788"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailInput2" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameInput" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/emailInput2"
@@ -54,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.789"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailInput" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameInput" />
 
     <ImageView
         android:id="@+id/moodvieLogo"
@@ -64,7 +64,7 @@
         android:contentDescription="@string/image_description"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/emailInput2" />
+        app:layout_constraintEnd_toStartOf="@+id/usernameInput" />
 
     <LinearLayout
         android:layout_width="251dp"
