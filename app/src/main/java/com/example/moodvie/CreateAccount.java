@@ -1,5 +1,6 @@
 package com.example.moodvie;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
@@ -24,21 +25,20 @@ public class CreateAccount extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-        getView(R.id.createAccountButton).setOnClickListener(new View.OnClickListener()
+        getView(R.id.createAccount_createButton).setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                TextView username = getView(R.id.userNameInput);
-                TextView password = getView(R.id.password);
-                TextView email = getView(R.id.emailInput2);
+                TextView name = getView(R.id.createAccount_name);
+                TextView username = getView(R.id.createAccount_username);
+                TextView password = getView(R.id.createAccount_password);
 
                 // If the inputs are blank then notify the user that their input is blank
-                if(_functions.isBlank(username.getText().toString(), password.getText().toString(), email.getText().toString()))
-                    _functions.createMessage(getApplicationContext(), "Blank");
+                if(_functions.isBlank(username.getText().toString(), password.getText().toString(), name.getText().toString()))
+                    _functions.createMessage(getApplicationContext(), "Fill in all fields to continue.");
                 else
                     _functions.createMessage(getApplicationContext(), "Not Blank");
-
 
             }
         });

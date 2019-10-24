@@ -9,7 +9,7 @@
 
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/usernameInput"
+        android:id="@+id/LoginScreen_username"
         android:layout_width="366dp"
         android:layout_height="41dp"
         android:layout_marginTop="50dp"
@@ -20,38 +20,38 @@
         app:layout_constraintTop_toBottomOf="@+id/moodvieLogo" />
 
     <Switch
-        android:id="@+id/rememberMeSwitch"
+        android:id="@+id/LoginScreen_rememberSwitch"
         android:layout_width="142dp"
         android:layout_height="45dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/login_remember"
-        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintBottom_toTopOf="@+id/LoginScreen_loginButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordInput"
+        app:layout_constraintTop_toBottomOf="@+id/LoginScreen_password"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/LoginScreen_loginButton"
         android:layout_width="369dp"
         android:layout_height="63dp"
         android:layout_marginTop="88dp"
         android:text="@string/login_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordInput" />
+        app:layout_constraintTop_toBottomOf="@+id/LoginScreen_password" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/passwordInput"
+        android:id="@+id/LoginScreen_password"
         android:layout_width="366dp"
         android:layout_height="42dp"
         android:layout_marginTop="24dp"
         android:hint="@string/prompt_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameInput" />
+        app:layout_constraintTop_toBottomOf="@+id/LoginScreen_username" />
 
 
     <ImageView
@@ -75,7 +75,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/noAccountString"
+            android:id="@+id/LoginScreen_noAccountString"
             android:layout_width="145dp"
             android:layout_height="20dp"
             android:layout_marginBottom="428dp"
@@ -87,14 +87,14 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/createAnAccount"
+            android:id="@+id/LoginScreen_createAnAccount"
             android:layout_width="115dp"
             android:layout_height="17dp"
             android:layout_marginBottom="428dp"
             android:text="@string/login_create_account"
             android:textColor="@color/blue"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/noAccountString" />
+            app:layout_constraintStart_toEndOf="@+id/LoginScreen_noAccountString" />
 
 
     </LinearLayout>

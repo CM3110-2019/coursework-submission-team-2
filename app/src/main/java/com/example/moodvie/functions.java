@@ -25,10 +25,10 @@ public class functions
         return db.exists(username);
     }
 
-    public Boolean isBlank(String username, String password, String email)
+    public Boolean isBlank(String username, String password, String name)
     {
-        if(email != null)
-            return username.equals("") || password.equals("") || email.equals("");
+        if(name != null)
+            return username.equals("") || password.equals("") || name.equals("");
         return username.equals("") || password.equals("");
     }
 }

@@ -14,11 +14,11 @@
         android:layout_marginTop="120dp"
         android:contentDescription="@string/image_description"
         android:src="@drawable/ic_launcher_background"
-        app:layout_constraintEnd_toStartOf="@+id/usernameInput"
+        app:layout_constraintEnd_toStartOf="@+id/createAccount_username"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/nameInput"
+        android:id="@+id/createAccount_name"
         android:layout_width="366dp"
         android:layout_height="41dp"
         android:layout_marginTop="120dp"
@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/usernameInput"
+        android:id="@+id/createAccount_username"
         android:layout_width="366dp"
         android:layout_height="42dp"
         android:layout_marginTop="12dp"
@@ -39,10 +39,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.739"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameInput" />
+        app:layout_constraintTop_toBottomOf="@+id/createAccount_name" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/password"
+        android:id="@+id/createAccount_password"
         android:layout_width="366dp"
         android:layout_height="42dp"
         android:layout_marginTop="8dp"
@@ -52,16 +52,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.739"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameInput" />
+        app:layout_constraintTop_toBottomOf="@+id/createAccount_username" />
 
     <Button
-        android:id="@+id/takePictureButton"
+        android:id="@+id/createAccount_createButton"
         android:layout_width="329dp"
         android:layout_height="59dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="128dp"
-        android:layout_marginRight="128dp"
+        android:layout_marginBottom="36dp"
         android:text="@string/create_account_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintHorizontal_bias="0.691"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createAccount_password"
+        app:layout_constraintVertical_bias="0.509" />
 </androidx.constraintlayout.widget.ConstraintLayout>
