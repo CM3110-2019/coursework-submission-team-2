@@ -41,7 +41,6 @@ public class CreateAccount extends AppCompatActivity
                 {
                     // If username exists
                     if(userDatabase.exists(username.getText().toString())) {
-                        _functions.createMessage(getApplicationContext(), userDatabase.exists(username.getText().toString()).toString());
                         _functions.createMessage(getApplicationContext(), "This username has already been created.");
                     }
                     else

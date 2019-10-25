@@ -24,7 +24,7 @@ public class HomeScreen extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(getApplicationContext(), SettingsMenu.class));
+                startActivity(new Intent(getApplicationContext(), SettingsPage.class));
             }
         });
 
