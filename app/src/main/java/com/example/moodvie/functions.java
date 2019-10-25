@@ -20,10 +20,12 @@ public class functions
         return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
     }
 
-    public Boolean isBlank(String username, String password, String name)
+    public Boolean isBlank(String username, String password, String name, String search)
     {
-        if(name != null)
+        if(name != null && search == null)
             return username.equals("") || password.equals("") || name.equals("");
+        else if(search != null)
+            return search.equals("");
         return username.equals("") || password.equals("");
     }
 }

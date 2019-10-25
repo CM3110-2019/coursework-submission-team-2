@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class HomeScreen extends AppCompatActivity
 {
@@ -51,6 +52,19 @@ public class HomeScreen extends AppCompatActivity
                     startActivity(new Intent(getApplicationContext(), FaceScan.class));
                 else
                     _functions.createMessage(getApplicationContext(), "No Camera Available");
+            }
+        });
+
+        getView(R.id.searchButton).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                TextView search = getView(R.id.etSearchMovie);
+                if(_functions.isBlank(null,null,null,search.getText().toString()))
+                    _functions.createMessage(getApplicationContext(), "Enter a search query");
+                else
+                    _functions.createMessage(getApplicationContext(), "Do somthing");
             }
         });
     }

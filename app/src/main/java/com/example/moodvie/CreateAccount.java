@@ -35,7 +35,7 @@ public class CreateAccount extends AppCompatActivity
                 TextView password = getView(R.id.createAccount_password);
 
                 // If inputs blank
-                if(_functions.isBlank(username.getText().toString(), password.getText().toString(), name.getText().toString()))
+                if(_functions.isBlank(username.getText().toString(), password.getText().toString(), name.getText().toString(), null))
                     _functions.createMessage(getApplicationContext(), "Fill in all fields to continue.");
                 else
                 {

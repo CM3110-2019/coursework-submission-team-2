@@ -39,7 +39,7 @@ public class LoginScreen extends AppCompatActivity
                 TextView password = getView(R.id.LoginScreen_password);
                 Switch remember = getView(R.id.LoginScreen_rememberSwitch);
 
-                if(_functions.isBlank(username.getText().toString(), password.getText().toString(), null))
+                if(_functions.isBlank(username.getText().toString(), password.getText().toString(), null, null))
                     _functions.createMessage(getApplicationContext(), "Fill in all fields to continue.");
                 else
                 {
