@@ -14,5 +14,9 @@
     <string name="take_picture_button">Open Camera</string>
     <string name="scan_header">Mood Scanner</string>
     <string name="use_this">Use Image</string>
+    <string name="logout">Logout</string>
+    <string name="search_for_movie">Search for Movie</string>
+    <string name="face_scan">Face Scan</string>
+    <string name="scan_movie">Scan Movie</string>
 
 </resources>

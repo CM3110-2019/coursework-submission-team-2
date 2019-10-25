@@ -7,33 +7,44 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class HomeScreen extends AppCompatActivity implements View.OnClickListener
+public class HomeScreen extends AppCompatActivity
 {
     protected <T extends View> T getView(int id) { return super.findViewById(id);}
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        Button faceButton = findViewById(R.id.faceButton);
-        faceButton.setOnClickListener(this);
+        // Click listener for settings button
+        getView(R.id.HomeScreen_settingButton).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(getApplicationContext(), SettingsMenu.class));
+            }
+        });
 
+        // Click listener for scan movie button
         getView(R.id.scanButton).setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(getBaseContext(), BarcodeScanner.class));
+                startActivity(new Intent(getApplicationContext(), BarcodeScanner.class));
             }
         });
-    }
 
-    @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.faceButton){
-            Intent intent = new Intent(getApplicationContext(), FaceScan.class);
-            startActivity(intent);
-        }
+        // Click listener for face scan button
+        getView(R.id.faceButton).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(getApplicationContext(), FaceScan.class));
+            }
+        });
     }
 }

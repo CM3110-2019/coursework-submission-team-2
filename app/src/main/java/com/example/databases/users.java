@@ -11,9 +11,9 @@ public class users extends SQLiteOpenHelper
 
     // Create a series of table and column names
     private static final String USER_TABLE = "users";
-    private static final String USER_ID = "user_id";
     private static final String USER_USERNAME = "username";
     private static final String USER_PASSWORD = "password";
+    private static final String USER_NAME = "user_name";
 
     public users(Context context)
     {
@@ -24,7 +24,7 @@ public class users extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         // Create the table
-        String createTable = "CREATE TABLE " + USER_TABLE + " (" + USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + USER_USERNAME + " VARCHAR(10), " + USER_PASSWORD + " VARCHAR(10))";
+        String createTable = "CREATE TABLE " + USER_TABLE + " (" + USER_USERNAME + " VARCHAR(10) PRIMARY KEY, " + USER_PASSWORD + " VARCHAR(10), " + USER_NAME + " VARCHAR(20))";
         db.execSQL(createTable);
     }
 
@@ -41,7 +41,7 @@ public class users extends SQLiteOpenHelper
      * @param password The password to be inserted
      * @return TRUE if the result is inserted else FALSE
      */
-    public boolean addData(String username, String password)
+    public boolean addData(String username, String password, String name)
     {
         // Access the database so we can access SQL commands
         SQLiteDatabase db = this.getWritableDatabase();
@@ -52,6 +52,7 @@ public class users extends SQLiteOpenHelper
         // Add the information to the set
         content.put(USER_USERNAME, username);
         content.put(USER_PASSWORD, password);
+        content.put(USER_NAME, name);
 
         // Try insert the contents of the content set into the database as a new row
         long result = db.insert(USER_TABLE, null, content);
@@ -93,5 +94,22 @@ public class users extends SQLiteOpenHelper
         cursor.close();
 
         return rows > 0;
+    }
+
+    /**
+     * Gets a row from the table
+     * @param username The user that's being looked for
+     * @return The row of the user being looked for
+     */
+    public Cursor getRow(String username)
+    {
+        // Access the database so we can access SQL commands
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Create a query to get a row from the table for a specific user
+        String query = "SELECT * FROM " + USER_TABLE + " WHERE " + USER_USERNAME + " = '" + username + "'";
+
+        // Return the result of the query as a Cursor object
+        return db.rawQuery(query, null);
     }
 }

@@ -20,11 +20,6 @@ public class functions
         return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
     }
 
-    public Boolean checkIfExists(users db, String username)
-    {
-        return db.exists(username);
-    }
-
     public Boolean isBlank(String username, String password, String name)
     {
         if(name != null)

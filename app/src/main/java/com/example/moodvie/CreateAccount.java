@@ -1,17 +1,17 @@
 package com.example.moodvie;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.databases.users;
 
-import org.w3c.dom.Text;
 
 public class CreateAccount extends AppCompatActivity
 {
@@ -34,12 +34,31 @@ public class CreateAccount extends AppCompatActivity
                 TextView username = getView(R.id.createAccount_username);
                 TextView password = getView(R.id.createAccount_password);
 
-                // If the inputs are blank then notify the user that their input is blank
+                // If inputs blank
                 if(_functions.isBlank(username.getText().toString(), password.getText().toString(), name.getText().toString()))
                     _functions.createMessage(getApplicationContext(), "Fill in all fields to continue.");
                 else
-                    _functions.createMessage(getApplicationContext(), "Not Blank");
-
+                {
+                    // If username exists
+                    if(userDatabase.exists(username.getText().toString())) {
+                        _functions.createMessage(getApplicationContext(), userDatabase.exists(username.getText().toString()).toString());
+                        _functions.createMessage(getApplicationContext(), "This username has already been created.");
+                    }
+                    else
+                    {
+                        // If insertion is successful
+                        if(userDatabase.addData(username.getText().toString(), password.getText().toString(), name.getText().toString()))
+                        {
+                            _functions.createMessage(getApplicationContext(), "Successfully created the account.");
+                            startActivity(new Intent(getBaseContext(), LoginScreen.class));
+                        }
+                        else
+                        {
+                            _functions.createMessage(getApplicationContext(), userDatabase.exists(username.getText().toString()).toString());
+                            _functions.createMessage(getApplicationContext(), "Failed to create your account.");
+                        }
+                    }
+                }
             }
         });
     }
