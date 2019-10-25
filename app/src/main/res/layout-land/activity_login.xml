@@ -62,7 +62,7 @@
         android:layout_height="146dp"
         android:layout_marginBottom="124dp"
         android:contentDescription="@string/image_description"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@mipmap/moodvie"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/LoginScreen_username" />
 
