@@ -10,6 +10,7 @@ import android.widget.Button;
 public class HomeScreen extends AppCompatActivity
 {
     protected <T extends View> T getView(int id) { return super.findViewById(id);}
+    functions _functions = new functions();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,7 +34,10 @@ public class HomeScreen extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(getApplicationContext(), BarcodeScanner.class));
+                if(_functions.checkCameraHardware(getApplicationContext()))
+                    startActivity(new Intent(getApplicationContext(), BarcodeScanner.class));
+                else
+                    _functions.createMessage(getApplicationContext(), "No Camera Available");
             }
         });
 
@@ -43,7 +47,10 @@ public class HomeScreen extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(getApplicationContext(), FaceScan.class));
+                if(_functions.checkCameraHardware(getApplicationContext()))
+                    startActivity(new Intent(getApplicationContext(), FaceScan.class));
+                else
+                    _functions.createMessage(getApplicationContext(), "No Camera Available");
             }
         });
     }

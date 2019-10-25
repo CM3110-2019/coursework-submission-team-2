@@ -31,22 +31,11 @@ public class FaceScan extends AppCompatActivity
         mimageView = findViewById(R.id.camera);
         getView(R.id.takePicture).setOnClickListener(new View.OnClickListener()
         {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view)
             {
-                if(_functions.checkCameraHardware(getApplicationContext()))
-                {
-                    if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-                        ActivityCompat.requestPermissions(FaceScan.this, new String[]{Manifest.permission.CAMERA}, 1);
-                    else
-                        takePicture(view);
-                }
-                else
-                    _functions.createMessage(getApplicationContext(), "No Camera Available");
+                takePicture(view);
             }
-
-
         });
 
 
