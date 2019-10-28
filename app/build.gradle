@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.example.moodvie"
-        minSdkVersion 15
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -17,8 +17,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-}
 
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/INDEX.LIST'
+    }
+
+}
+repositories {
+    mavenCentral()
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -30,4 +38,8 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'me.dm7.barcodescanner:zxing:1.9.13'
     implementation 'com.android.volley:volley:1.1.0'
+//    implementation 'com.google.api-client:google-api-client:1.30.5'
+    implementation 'com.google.cloud:google-cloud-storage:1.98.0'
+//    implementation group: 'com.google.cloud', name: 'google-cloud-vision', version: '0.5.1'
+    implementation 'com.google.cloud:google-cloud-vision:1.68.0'
 }

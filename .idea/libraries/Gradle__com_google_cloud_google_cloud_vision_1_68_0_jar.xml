@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.google.cloud:google-cloud-vision:1.68.0@jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.cloud/google-cloud-vision/1.68.0/1192cf1bddc26294dd04079dbd33dc1447eeca5e/google-cloud-vision-1.68.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.cloud/google-cloud-vision/1.68.0/389c40e11d7c19c0ae50a7db71e08c2ebe9938f3/google-cloud-vision-1.68.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
