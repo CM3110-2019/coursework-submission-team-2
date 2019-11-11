@@ -1,43 +1,14 @@
 package com.example.moodvie;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import android.Manifest;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Interpolator;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.ImageRequest;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.squareup.picasso.Picasso;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class MoviePage extends AppCompatActivity
 {
@@ -60,6 +31,7 @@ public class MoviePage extends AppCompatActivity
         final String movieOverview = b.getString("movieOverview");
         final String moviePoster = b.getString("moviePoster");
         final float movieRating = Float.parseFloat(b.getString("movieRating"));
+        final String movieCast = b.getString("movieCast");
 
         // Grab the tvMovieTitle (TextView) and set the movie title
         TextView title = getView(R.id.tvMovieTitle);
@@ -77,7 +49,9 @@ public class MoviePage extends AppCompatActivity
         SimpleRatingBar rating = getView(R.id.movieRatingBar);
         animateRatingBar(rating, Math.round(movieRating)/2f);
 
-        //_functions.createMessage(getApplicationContext(), String.valueOf(rating.getRating()));
+        // Grab the tvCast (TextView) and set the movie cast
+        TextView cast = getView(R.id.tvCast);
+        cast.setText(movieCast);
     }
 
     /**
