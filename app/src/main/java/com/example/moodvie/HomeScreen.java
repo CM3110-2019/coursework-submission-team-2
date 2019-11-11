@@ -64,7 +64,7 @@ public class HomeScreen extends AppCompatActivity
                 if(_functions.isBlank(null,null,null,search.getText().toString()))
                     _functions.createMessage(getApplicationContext(), "Enter a search query");
                 else
-                    _functions.createMessage(getApplicationContext(), "Do somthing");
+                    _functions.createMessage(getApplicationContext(), "Do something");
             }
         });
     }

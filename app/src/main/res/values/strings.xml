@@ -20,5 +20,9 @@
     <string name="scan_movie">Scan Movie</string>
     <string name="upcitemdbAPI">https://api.upcitemdb.com/prod/trial/lookup?upc=%s</string>
     <string name="tmdbAPI"><![CDATA[https://api.themoviedb.org/3/search/movie?api_key=41c71716931eb4f4b0f331c491551a7b&query=%s]]></string>
-
+    <string name="movie_title">Movie Title</string>
+    <string name="starring">Starring:</string>
+    <string name="movie_synopsis">Description</string>
+    <string name="cast_members">Cast Members</string>
+    <string name="synopsis_title">Synopsis:</string>
 </resources>

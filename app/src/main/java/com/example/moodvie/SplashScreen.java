@@ -55,7 +55,7 @@ public class SplashScreen extends AppCompatActivity
                         finish();
                     }
 
-                    // Otherwise redirect the user to the option page so they can log in/create an account
+                    // Otherwise redirect the user to the login page so they can log in/create an account
                     else {
                         startActivity(new Intent(getBaseContext(), LoginScreen.class));
                         finish();

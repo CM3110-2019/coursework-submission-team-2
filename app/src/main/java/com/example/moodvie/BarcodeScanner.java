@@ -45,13 +45,13 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
     @Override
     public void handleResult(Result result)
     {
-        upcitemdbAPI(result.getText());
+        upcitemdbAPI(getResources().getString(R.string.upcitemdbAPI, result.getText()));
 
     }
 
-    public void tmdbAPI(String movieName)
+    public void tmdbAPI(String url)
     {
-        String url = getResources().getString(R.string.tmdbAPI, movieName);
+
 
         // Create a Volley RequestQueue object to contain HTTP requests
         RequestQueue mRequestQueue = Volley.newRequestQueue(this);
@@ -77,11 +77,14 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
 
                     String title = zero.getString("title");
                     String overview = zero.getString("overview");
+                    String poster = zero.getString("poster_path");
+                    String vote_average = zero.getString("vote_average");
 
                     Intent i = new Intent(BarcodeScanner.this, MoviePage.class);
                     i.putExtra("movieTitle", title);
                     i.putExtra("movieOverview", overview);
-
+                    i.putExtra("moviePoster", poster);
+                    i.putExtra("movieRating", vote_average);
                     // Start the activity
                     startActivity(i);
                 }
@@ -112,10 +115,8 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
         mRequestQueue.add(stringRequest);
     }
 
-    public void upcitemdbAPI(String barcode)
+    public void upcitemdbAPI(String url)
     {
-        String url = getResources().getString(R.string.upcitemdbAPI, barcode);
-
         // Create a Volley RequestQueue object to contain HTTP requests
         RequestQueue mRequestQueue = Volley.newRequestQueue(this);
         mScannerView.resumeCameraPreview(this);
@@ -139,7 +140,8 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
                     JSONObject zero = items.getJSONObject(0);
 
                     String movieTitle = zero.getString("title").replaceAll("\\(.*?\\) ?", "");
-                    tmdbAPI(movieTitle);
+
+                    tmdbAPI(getResources().getString(R.string.tmdbAPI, movieTitle));
                 }
 
                 /*

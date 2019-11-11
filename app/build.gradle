@@ -42,4 +42,6 @@ dependencies {
     implementation 'com.google.cloud:google-cloud-storage:1.98.0'
 //    implementation group: 'com.google.cloud', name: 'google-cloud-vision', version: '0.5.1'
     implementation 'com.google.cloud:google-cloud-vision:1.68.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.iarcuschin:simpleratingbar:0.1.5'
 }
