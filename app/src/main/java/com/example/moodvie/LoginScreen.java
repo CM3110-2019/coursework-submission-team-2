@@ -6,12 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -58,7 +53,7 @@ public class LoginScreen extends AppCompatActivity
                                 editor.putString("LOGIN_USERNAME", "").apply();
                             }
                             _functions.createMessage(getApplicationContext(), "Authentication Successful");
-                            startActivity(new Intent(getBaseContext(), HomeScreen.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+                            startActivity(new Intent(getBaseContext(), HomeScreen.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("id", username.getText().toString()));
                         }
                         else
                             _functions.createMessage(getApplicationContext(), "Authentication Failed");

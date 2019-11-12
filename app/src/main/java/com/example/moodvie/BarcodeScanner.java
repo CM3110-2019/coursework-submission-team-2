@@ -16,20 +16,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import java.util.ArrayList;
+import java.util.Objects;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+
 
 public class BarcodeScanner extends Activity implements ZXingScannerView.ResultHandler
 {
     private ZXingScannerView mScannerView;
     functions _functions = new functions();
-
+    private String username;
     @Override
     public void onCreate(Bundle state)
     {
         super.onCreate(state);
         mScannerView = new ZXingScannerView(this);
+        Bundle b = getIntent().getExtras();
+        username = Objects.requireNonNull(b).getString("id");
+
         setContentView(mScannerView);
     }
 
@@ -148,7 +154,7 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
                     // Set up the credits JSON object and cast JSON array
                     JSONObject creditsObject = rootObject.getJSONObject("credits");
                     JSONArray cast = creditsObject.getJSONArray("cast");
-
+                    JSONArray genres = rootObject.getJSONArray("genres");
 
                     /*
                      *  Get the first 10 cast members that star in the movie and store them in
@@ -166,16 +172,39 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
                     }
 
                     /*
+                     *  Get all the movies genres and store them in an ArrayList.
+                     */
+
+                    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
+                    ArrayList<String> movieGenres = new ArrayList<>();
+                    for(int i=0; i<genres.length();i++)
+                    {
+                        JSONObject genre = genres.getJSONObject(i);
+                        movieGenres.add(genre.getString("name"));
+                    }
+
+                    /*
                      *  Create a StringBuilder object to combine all the cast names into one string.
                      *
                      *  StringBuilder is being used for performance improvements and because
                      *  StringBuilder is mutable (modify-able).
                      */
-                    StringBuilder stringBuilder = new StringBuilder();
+                    StringBuilder castBuilder = new StringBuilder();
                     for (String name : castList)
                     {
-                        stringBuilder.append(name).append(", ");
+                        castBuilder.append(name).append(", ");
                     }
+                    castBuilder.setLength(castBuilder.length() - 2);
+                    /*
+                     *  Create a StringBuilder object to combine all the genres into one string.
+                     */
+                    StringBuilder genreBuilder = new StringBuilder();
+                    for (String name : movieGenres)
+                    {
+                        genreBuilder.append(name).append(", ");
+
+                    }
+                    genreBuilder.setLength(genreBuilder.length() - 2);
 
                     /*
                      *  Get basic information from the root object;
@@ -195,7 +224,8 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
                     intent.putExtra("movieOverview", overview);
                     intent.putExtra("moviePoster", poster);
                     intent.putExtra("movieRating", vote_average);
-                    intent.putExtra("movieCast", stringBuilder.toString());
+                    intent.putExtra("movieCast", castBuilder.toString());
+                    intent.putExtra("movieGenres", genreBuilder.toString());
                     startActivity(intent);
                 }
 

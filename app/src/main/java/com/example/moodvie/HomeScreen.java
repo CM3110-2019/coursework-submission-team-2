@@ -1,23 +1,36 @@
 package com.example.moodvie;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.databases.movies;
+
+import java.util.Objects;
 
 public class HomeScreen extends AppCompatActivity
 {
     protected <T extends View> T getView(int id) { return super.findViewById(id);}
     functions _functions = new functions();
+    private movies mdb = new movies(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
+        Bundle b = getIntent().getExtras();
+        final String username = Objects.requireNonNull(b).getString("id");
 
         // Click listener for settings button
         getView(R.id.HomeScreen_settingButton).setOnClickListener(new View.OnClickListener()
@@ -36,7 +49,7 @@ public class HomeScreen extends AppCompatActivity
             public void onClick(View v)
             {
                 if(_functions.checkCameraHardware(getApplicationContext()))
-                    startActivity(new Intent(getApplicationContext(), BarcodeScanner.class));
+                    startActivity(new Intent(getApplicationContext(), BarcodeScanner.class).putExtra("id", username));
                 else
                     _functions.createMessage(getApplicationContext(), "No Camera Available");
             }
@@ -67,5 +80,14 @@ public class HomeScreen extends AppCompatActivity
                     _functions.createMessage(getApplicationContext(), "Do something");
             }
         });
+
+        //_functions.createMessage(getApplicationContext(), username);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
     }
 }
