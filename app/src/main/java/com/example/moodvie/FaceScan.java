@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 //import android.media.Image;
 import android.graphics.BitmapFactory;
+import android.net.wifi.hotspot2.pps.Credential;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +20,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 //import java.lang.reflect.Type;
@@ -25,12 +28,32 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Properties;
 import java.util.Scanner;
 
-
+import java.util.List;
 
 
 //google imports
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.InputStreamContent;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.services.storage.StorageScopes;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Bucket;
+import com.google.cloud.storage.BucketInfo;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 import com.google.cloud.vision.v1.AnnotateImageRequest;
 import com.google.cloud.vision.v1.AnnotateImageResponse;
 import com.google.cloud.vision.v1.BatchAnnotateImagesResponse;
@@ -40,9 +63,19 @@ import com.google.cloud.vision.v1.Feature.Type;
 import com.google.cloud.vision.v1.Image;
 import com.google.cloud.vision.v1.ImageAnnotatorClient;
 
+import static java.lang.System.getProperties;
+import static java.nio.charset.StandardCharsets.UTF_8;
+
+import com.google.api.services.storage.StorageScopes;
+import com.google.api.services.storage.model.StorageObject;
+
 import com.google.protobuf.ByteString;
 
+import org.json.JSONObject;
+
 import java.util.List;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 //end google imports
 
@@ -74,8 +107,26 @@ public class FaceScan extends AppCompatActivity
     HttpURLConnection httpConnection = (HttpURLConnection)urlConnection;
 
 
+    private static Properties properties;
+    private static Storage storage;
+
+    private static final String PROJECT_ID_PROPERTY = "tough-star-256909";
+    private static final String APPLICATION_NAME_PROPERTY = "Moodvie";
+    private static final String ACCOUNT_ID_PROPERTY = "moodvie@tough-star-256909.iam.gserviceaccount.com";
+    private static final String PRIVATE_KEY_PATH_PROPERTY = "H:\\APP DEV\\coursework-submission-team-2\\app\\src\\main\\resources\\tough-star-256909-1296aac295fb.json";
+
 
     //FACE SCAN CODE FINISHED --------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -96,64 +147,14 @@ public class FaceScan extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-//                try {
-//                    //scanImage();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-                PrintStream ps = new PrintStream(System.out);
-                File imgFile = new  File("drawable/face_smile.jpg");
-                //Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                String path = imgFile.getPath();
-                try {
-                    String[] args = {"faces", path};
 
+            uploadCloud();
 
-                    argsHelper(args, System.out);
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
         });
 
     }
 
-    public static void argsHelper(String[] args, PrintStream out) throws Exception, IOException {
-        if (args.length < 1) {
-            out.println("Usage:");
-            out.printf(
-                    "\tmvn exec:java -DDetect -Dexec.args=\"<command> <path-to-image>\"\n"
-                            + "\tmvn exec:java -DDetect -Dexec.args=\"ocr <path-to-file> <path-to-destination>\""
-                            + "\n"
-                            + "Commands:\n"
-                            + "\tfaces | labels | landmarks | logos | text | safe-search | properties"
-                            + "| web | web-entities | web-entities-include-geo | crop | ocr \n"
-                            + "| object-localization \n"
-                            + "Path:\n\tA file path (ex: ./resources/wakeupcat.jpg) or a URI for a Cloud Storage "
-                            + "resource (gs://...)\n"
-                            + "Path to File:\n\tA path to the remote file on Cloud Storage (gs://...)\n"
-                            + "Path to Destination\n\tA path to the remote destination on Cloud Storage for the"
-                            + " file to be saved. (gs://BUCKET_NAME/PREFIX/)\n");
-            return;
-        }
-
-        String command = args[0];
-        String path = args.length > 1 ? args[1] : "";
-        Log.d("myApp", "outside faces");
-        if (command.equals("faces")) {
-            Log.d("myApp", "in faces");
-
-
-            if (path.startsWith("gs://")) {
-                Log.d("MyApp", "cloud image");
-            } else {
-                detectFaces(path, out);
-
-            }
-        }
-    }
     public void takePicture(View view)
     {
         Intent imageTakeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -164,68 +165,67 @@ public class FaceScan extends AppCompatActivity
     }
 
 
-
-    public void scanImage() throws IOException {
+    public void uploadCloud(){
+//        Storage storage = StorageOptions.getDefaultInstance().getService();
+//        BlobId blobId = BlobId.of("my-images-bucket-1604113", "blob_name");
+//        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/plain").build();
+//        Blob blob = storage.create(blobInfo, "Hello, Cloud Storage!".getBytes(UTF_8));
 
         Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
-
                 try  {
-                    Log.d("MyApp","I tried");
-                    httpConnection.setRequestMethod("POST");
-                    httpConnection.setRequestProperty("Content-Type", "application/json");
-                    httpConnection.setDoOutput(true);
+                    Storage storage = StorageOptions.getDefaultInstance().getService();
 
-                    //buffered writer
-                    BufferedWriter httpRequestBodyWriter = new BufferedWriter(new OutputStreamWriter(httpConnection.getOutputStream()));
-                    httpRequestBodyWriter.write("{\"requests\":  [{ \"features\":  [ {\"type\": \"LABEL_DETECTION\""+"}], \"image\": {\"source\": { \"gcsImageUri\":"+" \"gs://vision-sample-images/4_Kittens.jpg\"}}}]}");
-                    httpRequestBodyWriter.close();
-                    Log.d("MyApp","\\\"requests\\\":  [{ \\\"features\\\":  [ {\\\"type\\\": \\\"LABEL_DETECTION\\\"\"+\"}], \\\"image\\\": {\\\"source\\\": { \\\"gcsImageUri\\\":\"+\" \\\"gs://vision-sample-images/4_Kittens.jpg\\\"}}}]}\")");
+// The name of a bucket, e.g. "my-bucket"
+                    String bucketName = "my-images-bucket-1604113";
 
+// Select all fields
+// Fields can be selected individually e.g. Storage.BucketField.NAME
+                    Bucket bucket = storage.get(bucketName, Storage.BucketGetOption.fields(Storage.BucketField.values()));
 
-                    //get response
-                    String response = httpConnection.getResponseMessage();
-                    Log.d("MyApp","I tried 3");
-                    Log.d("MyApp",response);
-                    //check response
-                    if (httpConnection.getInputStream() == null) {
-                        System.out.println("No stream");
-                        Log.d("MyApp","No stream");
-                        return;
-                    }else{
-                        Log.d("MyApp","I tried 3.5");
-                    }
-                    Log.d("MyApp","I tried 4");
-                    //create scanner
-                    Scanner httpResponseScanner = new Scanner(httpConnection.getInputStream());
-
-                    //create response string
-                    String resp = "";
-
-                    //parse scanner results and add to resp string
-                    while (httpResponseScanner.hasNext()) {
-                        String line = httpResponseScanner.nextLine();
-                        resp += line;
-                        System.out.println(line);  //  alternatively, print the line of response
+// Print bucket metadata
+                    System.out.println("BucketName: " + bucket.getName());
+                    System.out.println("DefaultEventBasedHold: " + bucket.getDefaultEventBasedHold());
+                    System.out.println("DefaultKmsKeyName: " + bucket.getDefaultKmsKeyName());
+                    System.out.println("Id: " + bucket.getGeneratedId());
+                    System.out.println("IndexPage: " + bucket.getIndexPage());
+                    System.out.println("Location: " + bucket.getLocation());
+                    System.out.println("LocationType: " + bucket.getLocationType());
+                    System.out.println("Metageneration: " + bucket.getMetageneration());
+                    System.out.println("NotFoundPage: " + bucket.getNotFoundPage());
+                    System.out.println("RetentionEffectiveTime: " + bucket.getRetentionEffectiveTime());
+                    System.out.println("RetentionPeriod: " + bucket.getRetentionPeriod());
+                    System.out.println("RetentionPolicyIsLocked: " + bucket.retentionPolicyIsLocked());
+                    System.out.println("RequesterPays: " + bucket.requesterPays());
+                    System.out.println("SelfLink: " + bucket.getSelfLink());
+                    System.out.println("StorageClass: " + bucket.getStorageClass().name());
+                    System.out.println("TimeCreated: " + bucket.getCreateTime());
+                    System.out.println("VersioningEnabled: " + bucket.versioningEnabled());
+                    if (bucket.getLabels() != null) {
+                        System.out.println("\n\n\nLabels:");
+                        for (Map.Entry<String, String> label : bucket.getLabels().entrySet()) {
+                            System.out.println(label.getKey() + "=" + label.getValue());
+                        }
                     }
 
-                    //close scanner
-                    httpResponseScanner.close();
+                    BlobId blobId = BlobId.of("bucket", "blob_name");
+                    BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/plain").build();
+                    Blob blob = storage.create(blobInfo, "Hello, Cloud Storage!".getBytes(UTF_8));
                 } catch (Exception e) {
-                    Log.d("MyApp","went into catch");
                     e.printStackTrace();
-
                 }
             }
         });
 
-        _functions.createMessage(getApplicationContext(), "Running Face Scan");
         thread.start();
 
 
     }
+
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static void detectFaces(String filePath, PrintStream out) throws Exception, IOException {
