@@ -1,9 +1,13 @@
 package com.example.moodvie;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 //import android.media.Image;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.net.wifi.hotspot2.pps.Credential;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,8 +19,10 @@ import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -27,6 +33,9 @@ import java.io.PrintStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
@@ -119,14 +128,6 @@ public class FaceScan extends AppCompatActivity
     //FACE SCAN CODE FINISHED --------------------------------------------------------------------------------
 
 
-
-
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -170,6 +171,11 @@ public class FaceScan extends AppCompatActivity
 //        BlobId blobId = BlobId.of("my-images-bucket-1604113", "blob_name");
 //        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/plain").build();
 //        Blob blob = storage.create(blobInfo, "Hello, Cloud Storage!".getBytes(UTF_8));
+        ImageView bmp = getView(R.id.bitmapImage);
+        bmp.setImageDrawable(getDrawable(R.drawable.face));
+
+
+
 
         Thread thread = new Thread(new Runnable() {
 
@@ -184,35 +190,17 @@ public class FaceScan extends AppCompatActivity
 // Select all fields
 // Fields can be selected individually e.g. Storage.BucketField.NAME
                     Bucket bucket = storage.get(bucketName, Storage.BucketGetOption.fields(Storage.BucketField.values()));
+                    Log.d("myApp", "HERE");
 
-// Print bucket metadata
-                    System.out.println("BucketName: " + bucket.getName());
-                    System.out.println("DefaultEventBasedHold: " + bucket.getDefaultEventBasedHold());
-                    System.out.println("DefaultKmsKeyName: " + bucket.getDefaultKmsKeyName());
-                    System.out.println("Id: " + bucket.getGeneratedId());
-                    System.out.println("IndexPage: " + bucket.getIndexPage());
-                    System.out.println("Location: " + bucket.getLocation());
-                    System.out.println("LocationType: " + bucket.getLocationType());
-                    System.out.println("Metageneration: " + bucket.getMetageneration());
-                    System.out.println("NotFoundPage: " + bucket.getNotFoundPage());
-                    System.out.println("RetentionEffectiveTime: " + bucket.getRetentionEffectiveTime());
-                    System.out.println("RetentionPeriod: " + bucket.getRetentionPeriod());
-                    System.out.println("RetentionPolicyIsLocked: " + bucket.retentionPolicyIsLocked());
-                    System.out.println("RequesterPays: " + bucket.requesterPays());
-                    System.out.println("SelfLink: " + bucket.getSelfLink());
-                    System.out.println("StorageClass: " + bucket.getStorageClass().name());
-                    System.out.println("TimeCreated: " + bucket.getCreateTime());
-                    System.out.println("VersioningEnabled: " + bucket.versioningEnabled());
-                    if (bucket.getLabels() != null) {
-                        System.out.println("\n\n\nLabels:");
-                        for (Map.Entry<String, String> label : bucket.getLabels().entrySet()) {
-                            System.out.println(label.getKey() + "=" + label.getValue());
-                        }
-                    }
+                    File fi = new File("H:\\APP DEV\\coursework-submission-team-2\\app\\src\\main\\res\\drawable\\face.jpg");
+                    Log.d("myApp", fi.getAbsolutePath());
+                    Path path = fi.toPath();
 
-                    BlobId blobId = BlobId.of("bucket", "blob_name");
-                    BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/plain").build();
-                    Blob blob = storage.create(blobInfo, "Hello, Cloud Storage!".getBytes(UTF_8));
+                    BlobId blobId = BlobId.of(bucketName, "blob_name_image");
+                    BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("image/jpeg").build();
+                    Blob blob = storage.create(blobInfo, Files.readAllBytes(fi.toPath()));
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
