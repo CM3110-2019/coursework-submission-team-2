@@ -215,7 +215,9 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
                     intent.putExtra("movieRating", vote_average);
                     intent.putExtra("movieCast", castBuilder.toString());
                     intent.putExtra("movieGenres", genreType);
+                    intent.putExtra("username", username);
                     startActivity(intent);
+                    finish();
                 }
 
                 /*

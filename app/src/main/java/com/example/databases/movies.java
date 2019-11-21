@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 public class movies extends SQLiteOpenHelper
 {
@@ -77,7 +78,7 @@ public class movies extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
 
         // Create a query to get all of the data from USER_TABLE
-        String query = "SELECT * FROM " + USER_TABLE + " WHERE " + USERNAME + " = " + username;
+        String query = "SELECT * FROM " + USER_TABLE + " WHERE " + USERNAME + " = '" + username + "'";
 
         // Return the result of the query as a Cursor object
         return db.rawQuery(query, null);
@@ -87,15 +88,29 @@ public class movies extends SQLiteOpenHelper
      * Gets a row from the table
      * @param username The user that's being looked for
      */
-    public void getRow(String username)
+    public Cursor getRow(String username)
     {
         // Access the database so we can access SQL commands
         SQLiteDatabase db = this.getWritableDatabase();
 
         // Create a query to get a row from the table for a specific user
-        //String query = "SELECT * FROM " + USER_TABLE + " WHERE " + USER_USERNAME + " = '" + username + "'";
+        String query = "SELECT * FROM " + USER_TABLE + " WHERE " + USERNAME + " = '" + username + "'";
 
         // Return the result of the query as a Cursor object
-        //return db.rawQuery(query, null);
+        return db.rawQuery(query, null);
+    }
+
+    public int getNumberOfRows(String username)
+    {
+        // Access the database so we can access SQL commands
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Create a query to get a row from the table for a specific user
+        String query = "SELECT * FROM " + USER_TABLE + " WHERE " + USERNAME + " = '" + username + "'";
+
+        Cursor cursor = db.rawQuery(query, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
     }
 }

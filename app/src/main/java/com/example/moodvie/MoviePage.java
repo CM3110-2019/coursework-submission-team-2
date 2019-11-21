@@ -1,6 +1,9 @@
 package com.example.moodvie;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -88,7 +91,7 @@ public class MoviePage extends AppCompatActivity
                 .setRatingTarget(target)
                 .setDuration(2000)
                 .setRepeatCount(0)
-                .setInterpolator(new BounceInterpolator());
+                .setInterpolator(new FastOutSlowInInterpolator());
         builder.start();
         ratingBar.setRating(target);
     }

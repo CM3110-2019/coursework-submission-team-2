@@ -172,7 +172,7 @@ public class FaceScan extends AppCompatActivity
 //        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/plain").build();
 //        Blob blob = storage.create(blobInfo, "Hello, Cloud Storage!".getBytes(UTF_8));
         ImageView bmp = getView(R.id.bitmapImage);
-        bmp.setImageDrawable(getDrawable(R.drawable.face));
+        //bmp.setImageDrawable(getDrawable(R.drawable.face));
 
 
 

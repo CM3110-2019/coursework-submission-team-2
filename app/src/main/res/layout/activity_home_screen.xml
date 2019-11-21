@@ -7,139 +7,97 @@
         android:background="@color/purple"
         tools:context=".HomeScreen">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/etSearchMovie"
+            android:layout_width="212dp"
+            android:layout_height="46dp"
+            android:layout_marginLeft="52dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="@string/search_for_movie"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/scanButton"
+            android:layout_width="158dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/pinkpurple"
+            android:text="@string/scan_movie"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/faceButton"
+            app:layout_constraintTop_toBottomOf="@id/etSearchMovie"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="120dp" />
+
+        <Button
+            android:id="@+id/faceButton"
+            android:layout_width="158dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/pinkpurple"
+            android:text="@string/face_scan"
+            app:layout_constraintLeft_toRightOf="@id/scanButton"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etSearchMovie"
+            tools:layout_editor_absoluteX="224dp"
+            tools:layout_editor_absoluteY="120dp" />
+
+        <ImageButton
+            android:id="@+id/HomeScreen_settingButton"
+            android:layout_width="46dp"
+            android:layout_height="42dp"
+            android:background="@color/pinkpurple"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_manage" />
+
+        <ImageButton
+            android:id="@+id/searchButton"
+            android:layout_width="61dp"
+            android:layout_height="47dp"
+            android:layout_marginLeft="4dp"
+            android:background="@color/pinkpurple"
+            app:layout_constraintLeft_toRightOf="@+id/etSearchMovie"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_search_category_default" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <ScrollView
         android:id="@+id/scrollMainPage"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="600dp"
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.877"
+        tools:layout_editor_absoluteX="0dp">
 
-            <EditText
-                android:id="@+id/etSearchMovie"
-                android:layout_width="212dp"
-                android:layout_height="46dp"
-                android:layout_marginLeft="52dp"
-                android:background="@color/white"
-                android:ems="10"
-                android:hint="@string/search_for_movie"
-                android:inputType="textPersonName"
-                android:textAlignment="center"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.gridlayout.widget.GridLayout
+            android:id="@+id/gridLayout"
+            android:layout_width="404dp"
+            android:layout_height="606dp"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <Button
-                android:id="@+id/scanButton"
-                android:layout_width="158dp"
-                android:layout_height="48dp"
-                android:text="@string/scan_movie"
-                android:background="@color/pinkpurple"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/faceButton"
-                app:layout_constraintTop_toBottomOf="@id/etSearchMovie"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                tools:layout_editor_absoluteX="26dp"
-                tools:layout_editor_absoluteY="120dp" />
-
-            <Button
-                android:id="@+id/faceButton"
-                android:layout_width="158dp"
-                android:layout_height="48dp"
-                android:text="@string/face_scan"
-                android:background="@color/pinkpurple"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/scanButton"
-                app:layout_constraintTop_toBottomOf="@id/etSearchMovie"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                tools:layout_editor_absoluteX="224dp"
-                tools:layout_editor_absoluteY="120dp" />
-
-            <ImageButton
-                android:id="@+id/HomeScreen_settingButton"
-                android:layout_width="46dp"
-                android:layout_height="42dp"
-                android:background="@color/pinkpurple"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_menu_manage" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/movieRecycleView"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="15dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/scanButton"
-                app:layout_constraintVertical_bias="0.0"
-                tools:layout_editor_absoluteX="0dp" />
-
-            <ImageButton
-                android:id="@+id/searchButton"
-                android:layout_width="61dp"
-                android:layout_height="47dp"
-                android:layout_marginLeft="4dp"
-                android:background="@color/pinkpurple"
-                app:layout_constraintLeft_toRightOf="@+id/etSearchMovie"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_search_category_default" />
-
-            <ImageView
-                android:id="@+id/image1"
-                android:layout_width="203dp"
-                android:layout_height="185dp"
-                app:layout_constraintTop_toBottomOf="@id/scanButton"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="23dp"
-                android:layout_marginLeft="1dp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="174dp"
-                android:src="@drawable/ic_launcher_background" />
-
-            <ImageView
-                android:id="@+id/image3"
-                android:layout_width="203dp"
-                android:layout_height="185dp"
-                android:layout_marginTop="100dp"
-                android:layout_marginLeft="1dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image1"
-                android:src="@drawable/ic_launcher_background" />
-
-            <ImageView
-                android:id="@+id/image2"
-                android:layout_width="203dp"
-                android:layout_height="185dp"
-                app:layout_constraintTop_toBottomOf="@id/scanButton"
-                app:layout_constraintLeft_toRightOf="@id/image1"
-                android:layout_marginTop="23dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                tools:layout_editor_absoluteX="230dp"
-                tools:layout_editor_absoluteY="174dp"
-                android:src="@drawable/ic_launcher_background" />
-
-            <ImageView
-                android:id="@+id/image4"
-                android:layout_width="203dp"
-                android:layout_height="185dp"
-                android:layout_marginTop="100dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                app:layout_constraintTop_toBottomOf="@id/image2"
-                app:layout_constraintLeft_toRightOf="@id/image3"
-                tools:layout_editor_absoluteX="230dp"
-                tools:layout_editor_absoluteY="489dp"
-                android:src="@drawable/ic_launcher_background" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.gridlayout.widget.GridLayout>
 
     </ScrollView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
