@@ -62,8 +62,14 @@
         android:id="@+id/bitmapImage"
         android:layout_width="229dp"
         android:layout_height="285dp"
-        tools:layout_editor_absoluteX="184dp"
-        tools:layout_editor_absoluteY="267dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sampleImage"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
