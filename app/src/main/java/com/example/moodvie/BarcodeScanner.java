@@ -28,6 +28,7 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
     private ZXingScannerView mScannerView;
     functions _functions = new functions();
     private String username;
+    private String genreType;
     @Override
     public void onCreate(Bundle state)
     {
@@ -172,15 +173,16 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
                     }
 
                     /*
-                     *  Get all the movies genres and store them in an ArrayList.
+                     *  Return the main genre
                      */
 
                     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
                     ArrayList<String> movieGenres = new ArrayList<>();
-                    for(int i=0; i<genres.length();i++)
+
+                    for(int i=0; i<1;i++)
                     {
                         JSONObject genre = genres.getJSONObject(i);
-                        movieGenres.add(genre.getString("name"));
+                        genreType = genre.getString("name");
                     }
 
                     /*
@@ -195,16 +197,6 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
                         castBuilder.append(name).append(", ");
                     }
                     castBuilder.setLength(castBuilder.length() - 2);
-                    /*
-                     *  Create a StringBuilder object to combine all the genres into one string.
-                     */
-                    StringBuilder genreBuilder = new StringBuilder();
-                    for (String name : movieGenres)
-                    {
-                        genreBuilder.append(name).append(", ");
-
-                    }
-                    genreBuilder.setLength(genreBuilder.length() - 2);
 
                     /*
                      *  Get basic information from the root object;
@@ -225,7 +217,7 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
                     intent.putExtra("moviePoster", poster);
                     intent.putExtra("movieRating", vote_average);
                     intent.putExtra("movieCast", castBuilder.toString());
-                    intent.putExtra("movieGenres", genreBuilder.toString());
+                    intent.putExtra("movieGenres", genreType);
                     startActivity(intent);
                 }
 
