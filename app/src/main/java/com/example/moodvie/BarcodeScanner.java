@@ -176,9 +176,6 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
                      *  Return the main genre
                      */
 
-                    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
-                    ArrayList<String> movieGenres = new ArrayList<>();
-
                     for(int i=0; i<1;i++)
                     {
                         JSONObject genre = genres.getJSONObject(i);
