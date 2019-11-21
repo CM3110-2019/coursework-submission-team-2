@@ -196,9 +196,26 @@ public class FaceScan extends AppCompatActivity
                     Log.d("myApp", fi.getAbsolutePath());
                     Path path = fi.toPath();
 
+//                    ImageView imgView,bitmap;
+//
+//                    imgView=(ImageView) findViewById(R.id.sampleImage);
+//
+//                    Bitmap bm=((BitmapDrawable)imgView.getDrawable()).getBitmap();
+//
+//                    //set view to bitmap image
+//                    imgView.setImageBitmap(bm);
+
+                    ImageView imageView = findViewById(R.id.sampleImage);
+                    Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byte[] imageInByte = baos.toByteArray();
+
+
+
                     BlobId blobId = BlobId.of(bucketName, "blob_name_image");
                     BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("image/jpeg").build();
-                    Blob blob = storage.create(blobInfo, Files.readAllBytes(fi.toPath()));
+                    Blob blob = storage.create(blobInfo, imageInByte);
 
 
                 } catch (Exception e) {
