@@ -100,6 +100,30 @@ public class movies extends SQLiteOpenHelper
         return db.rawQuery(query, null);
     }
 
+    public Boolean movieExists(String username, String movie)
+    {
+        // Access the database so we can access SQL commands
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Create a query to check if a specific user exists in USER_TABLE
+        String query = "SELECT * FROM " + USER_TABLE + " WHERE " + MOVIE_NAME + " = '" + movie + "'" + " and " + USERNAME + " = '" + username + "'";
+        // Create a Cursor object from the query
+        Cursor cursor = db.rawQuery(query, null);
+
+        // Get the number of rows and close the cursor
+        long rows = cursor.getCount();
+        cursor.close();
+
+        // Return true if the number of rows > 0 else false
+        return rows > 0;
+    }
+
+    public boolean deleteMovie(String username, String movie)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(USER_TABLE, MOVIE_NAME +  "=? and " + USERNAME + "=?", new String[]{movie, username}) > 0;
+    }
+
     public int getNumberOfRows(String username)
     {
         // Access the database so we can access SQL commands

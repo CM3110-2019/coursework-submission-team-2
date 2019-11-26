@@ -90,8 +90,8 @@
             android:id="@+id/gridLayout"
             android:layout_width="404dp"
             android:layout_height="606dp"
-            android:padding="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="30dp"
+            app:layout_constraintBottom_toBottomOf="@id/scanButton"
             app:layout_constraintEnd_toEndOf="parent">
 
         </androidx.gridlayout.widget.GridLayout>

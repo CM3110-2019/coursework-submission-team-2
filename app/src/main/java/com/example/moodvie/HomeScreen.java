@@ -1,26 +1,18 @@
 package com.example.moodvie;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.ActionBar;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.databases.movies;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class HomeScreen extends AppCompatActivity
@@ -36,10 +28,11 @@ public class HomeScreen extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
+        // Get the bundle objects and set the username
         Bundle b = getIntent().getExtras();
         username = Objects.requireNonNull(b).getString("id");
 
-        // Click listener for settings button
+        // Click listener for Settings button
         getView(R.id.HomeScreen_settingButton).setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -49,7 +42,7 @@ public class HomeScreen extends AppCompatActivity
             }
         });
 
-        // Click listener for scan movie button
+        // Click listener for Scan Movie button
         getView(R.id.scanButton).setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -62,7 +55,7 @@ public class HomeScreen extends AppCompatActivity
             }
         });
 
-        // Click listener for face scan button
+        // Click listener for Face Scan button
         getView(R.id.faceButton).setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -75,6 +68,7 @@ public class HomeScreen extends AppCompatActivity
             }
         });
 
+        // Click listener for Search Movie button
         getView(R.id.searchButton).setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -95,58 +89,99 @@ public class HomeScreen extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        int width = size.x;
-        int height = size.y;
 
-        androidx.gridlayout.widget.GridLayout gridLayout = getView(R.id.gridLayout);
+        // Create a series of ArrayLists to hold movie information
+        final ArrayList<String> movieNames = new ArrayList<>();
+        final ArrayList<String> movieOverviews = new ArrayList<>();
+        final ArrayList<String> movieCast = new ArrayList<>();
+        final ArrayList<String> movieGenres = new ArrayList<>();
+        final ArrayList<String> movieRatings = new ArrayList<>();
+        final ArrayList<String> moviePosters = new ArrayList<>();
 
-        gridLayout.removeAllViews();
-        int total = mdb.getNumberOfRows(username);
-        int column = 3;
-        int row = total / column;
-        gridLayout.setColumnCount(column);
-        gridLayout.setRowCount(row + 1);
+        // Get all of the user's stored movies from the movie database as a Cursor object
+        final Cursor getAll = mdb.getAllData(username);
 
-        for (int i = 0, c = 0, r = 0; i < total; i++, c++)
+        // Iterate over the Cursor object and add the movie information to corresponding ArrayLists
+        while(getAll != null && getAll.moveToNext())
         {
-            if (c == column)
+            movieNames.add(getAll.getString(0));
+            movieOverviews.add(getAll.getString(1));
+            movieCast.add(getAll.getString(2));
+            movieGenres.add(getAll.getString(3));
+            movieRatings.add(getAll.getString(4));
+            moviePosters.add(getAll.getString(5));
+        }
+
+        // Get the grid layout and remove the old one so a new one can be created on each resume
+        androidx.gridlayout.widget.GridLayout gridLayout = getView(R.id.gridLayout);
+        gridLayout.removeAllViews();
+
+        // Get how many ImageButtons need to be created
+        int total = mdb.getNumberOfRows(username);
+
+         /*
+          * Set up the columns and rows for the grid layout.
+          *
+          * When it comes to creating the rows, Java will round a number down when integer division
+          * occurs between 2 integer values therefore +1 will need to be added to it to create an
+          * additional row.
+          *
+          * Example;
+          * 5 movies are stored in the movie database and 3 movie posters are needed in each column
+          * therefore the number rows needed are 5/3 ~=  1.6 rows this rounds to 1 because of
+          * integer division so an additional row will need to be added (+1) to span 5 movies
+          * across two rows.
+          */
+        int column = 3;
+        int row = total / column + 1;
+        gridLayout.setColumnCount(column);
+        gridLayout.setRowCount(row);
+
+        /*
+         * Create a loop that iterates for the number of movies that someone has so that a grid view
+         * can be dynamically added to with movie posters and information
+         */
+        for (int i = 0; i < total; i++)
+        {
+            // Create a temporary index to hold the value of i
+            final int index = i;
+
+            // Create a new ImageButton on each loop
+            ImageButton imageButton = new ImageButton(this);
+
+            // Click listener for when the ImageButton is clicked
+            imageButton.setOnClickListener(new View.OnClickListener()
             {
-                c = 0;
-                r++;
-            }
-
-            gridLayout.removeAllViews();
-            final Cursor getAll = mdb.getAllData(username);
-            while(getAll != null && getAll.moveToNext())
-            {
-
-                ImageView oImageView = new ImageView(this);
-                TextView oTextView = new TextView(this);
-
-                Picasso.get().load("https://image.tmdb.org/t/p/w185" + getAll.getString(5)).resize(width, 600).into(oImageView);
-                oImageView.setPadding(15, 0, 15, 15);
-
-                GridLayout.Spec rowSpan = GridLayout.spec(GridLayout.UNDEFINED, 300);
-                GridLayout.Spec colspan = GridLayout.spec(GridLayout.UNDEFINED, 300);
-                if (r == 0 && c == 0) {
-                    colspan = GridLayout.spec(GridLayout.UNDEFINED, 300);
-                    rowSpan = GridLayout.spec(GridLayout.UNDEFINED, 300);
-                }
-                GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(rowSpan, colspan);
-                gridLayout.addView(oImageView, gridParam);
-
-                oImageView.setOnClickListener(new View.OnClickListener()
+                @Override
+                public void onClick(View v)
                 {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        _functions.createMessage(getApplicationContext(), getAll.getString(0));
+                    /*
+                     *  When the ImageButton is clicked open the MoviePage activity
+                     *  and populate it with the movies information based on the index position
+                     *  in the ArrayLists
+                     */
+                    Intent intent = new Intent(HomeScreen.this, MoviePage.class);
+                    intent.putExtra("movieTitle", movieNames.get(index));
+                    intent.putExtra("movieOverview", movieOverviews.get(index));
+                    intent.putExtra("moviePoster", moviePosters.get(index));
+                    intent.putExtra("movieRating", movieRatings.get(index));
+                    intent.putExtra("movieCast", movieCast.get(index));
+                    intent.putExtra("movieGenres", movieGenres.get(index));
+                    intent.putExtra("username", username);
+                    intent.putExtra("caller", "HomeScreen");
+                    startActivity(intent);
+                }
+            });
 
-                    }
-                });
-            }
+            // Load the movie poster as the ImageButton image using Picasso
+            Picasso.get().load("https://image.tmdb.org/t/p/w185" + moviePosters.get(index)).resize(0, 600).into(imageButton);
+
+            // Space out the ImageButton with some padding
+            imageButton.setPadding(0, 0, 12, 20);
+
+            // Create the layout parameters of the grid and add it to the view
+            GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(GridLayout.UNDEFINED, 300), GridLayout.spec(GridLayout.UNDEFINED, 300));
+            gridLayout.addView(imageButton, gridParam);
         }
     }
 }
