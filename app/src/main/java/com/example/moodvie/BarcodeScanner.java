@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.objects.Person;
 import com.google.zxing.Result;
 
 import org.json.JSONArray;
@@ -27,15 +28,16 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
 {
     private ZXingScannerView mScannerView;
     functions _functions = new functions();
-    private String username;
+    private Person person;
     private String genreType;
     @Override
     public void onCreate(Bundle state)
     {
         super.onCreate(state);
         mScannerView = new ZXingScannerView(this);
-        Bundle b = getIntent().getExtras();
-        username = Objects.requireNonNull(b).getString("id");
+
+        // De-serialise the person object stored in the Intent extras
+        person = (Person) getIntent().getSerializableExtra("personClass");
 
         setContentView(mScannerView);
     }
@@ -215,7 +217,7 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
                     intent.putExtra("movieRating", vote_average);
                     intent.putExtra("movieCast", castBuilder.toString());
                     intent.putExtra("movieGenres", genreType);
-                    intent.putExtra("username", username);
+                    intent.putExtra("personClass", person);
                     intent.putExtra("caller", "BarcodeScanner");
                     startActivity(intent);
                     finish();

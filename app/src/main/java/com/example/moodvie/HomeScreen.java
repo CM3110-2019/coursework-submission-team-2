@@ -14,7 +14,6 @@ import com.example.objects.Person;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class HomeScreen extends AppCompatActivity
 {
@@ -29,7 +28,7 @@ public class HomeScreen extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        // Deserialise the current_account object
+        // De-serialise the person object stored in the Intent extras
         person = (Person) getIntent().getSerializableExtra("personClass");
 
         // Click listener for Settings button
@@ -38,6 +37,7 @@ public class HomeScreen extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                // Start settings page and pass the person object to it
                 startActivity(new Intent(getApplicationContext(), SettingsPage.class));
             }
         });
@@ -48,6 +48,10 @@ public class HomeScreen extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                /*
+                 * If the user has a camera on their phone then open the barcode scanner otherwise
+                 * notify them that there's no camera available to use
+                 */
                 if(_functions.checkCameraHardware(getApplicationContext()))
                     startActivity(new Intent(getApplicationContext(), BarcodeScanner.class).putExtra("personClass", person));
                 else
@@ -61,6 +65,10 @@ public class HomeScreen extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                /*
+                 * If the user has a camera on their phone then open the face scanner otherwise
+                 * notify them that there's no camera available to use
+                 */
                 if(_functions.checkCameraHardware(getApplicationContext()))
                     startActivity(new Intent(getApplicationContext(), FaceScan.class));
                 else
@@ -81,8 +89,6 @@ public class HomeScreen extends AppCompatActivity
                     _functions.createMessage(getApplicationContext(), "Do something");
             }
         });
-
-        //_functions.createMessage(getApplicationContext(), username);
     }
 
     @Override
@@ -98,7 +104,7 @@ public class HomeScreen extends AppCompatActivity
         final ArrayList<String> movieRatings = new ArrayList<>();
         final ArrayList<String> moviePosters = new ArrayList<>();
 
-        // Get all of the user's stored movies from the movie database as a Cursor object
+        // Get all of the stored movies for the user logged in as a Cursor object
         final Cursor getAll = mdb.getAllData(person.getUsername());
 
         // Iterate over the Cursor object and add the movie information to corresponding ArrayLists
@@ -118,7 +124,6 @@ public class HomeScreen extends AppCompatActivity
 
         // Get how many ImageButtons need to be created
         int total = mdb.getNumberOfRows(person.getUsername());
-
          /*
           * Set up the columns and rows for the grid layout.
           *
@@ -127,8 +132,8 @@ public class HomeScreen extends AppCompatActivity
           * additional row.
           *
           * Example;
-          * 5 movies are stored in the movie database and 3 movie posters are needed in each column
-          * therefore the number rows needed are 5/3 ~=  1.6 rows this rounds to 1 because of
+          * 5 movies are stored in the movie database and 3 movie posters are needed per each row
+          * therefore the number of rows needed is 5/3 ~=  1.6 this gets rounded to 1 because of
           * integer division so an additional row will need to be added (+1) to span 5 movies
           * across two rows.
           */
@@ -138,8 +143,8 @@ public class HomeScreen extends AppCompatActivity
         gridLayout.setRowCount(row);
 
         /*
-         * Create a loop that iterates for the number of movies that someone has so that a grid view
-         * can be dynamically added to with movie posters and information
+         * Create a loop that iterates for the number of movies the user has so that the grid view
+         * can be dynamically populated with movie posters and movie information
          */
         for (int i = 0; i < total; i++)
         {
@@ -167,13 +172,13 @@ public class HomeScreen extends AppCompatActivity
                     intent.putExtra("movieRating", movieRatings.get(index));
                     intent.putExtra("movieCast", movieCast.get(index));
                     intent.putExtra("movieGenres", movieGenres.get(index));
-                    intent.putExtra("username", person.getUsername());
+                    intent.putExtra("personClass", person);
                     intent.putExtra("caller", "HomeScreen");
                     startActivity(intent);
                 }
             });
 
-            // Load the movie poster as the ImageButton image using Picasso
+            // Set the ImageButton image as the movie poster using Picasso
             Picasso.get().load("https://image.tmdb.org/t/p/w185" + moviePosters.get(index)).resize(0, 600).into(imageButton);
 
             // Space out the ImageButton with some padding

@@ -34,4 +34,8 @@
     <string name="failed_to_delete_movie">Failed to delete %s</string>
     <string name="successfully_deleted_movie">%s has been deleted.</string>
     <string name="failed_to_add_movie">Failed to add movie to your stored list</string>
+    <string name="fill_in_all_fields">Fill in all fields to continue.</string>
+    <string name="account_doesnt_exist">This Account Doesn\'t Exist</string>
+    <string name="auth_failed">Authentication Failed</string>
+    <string name="auth_success">Authentication Successful</string>
 </resources>

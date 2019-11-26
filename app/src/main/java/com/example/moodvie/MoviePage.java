@@ -1,5 +1,6 @@
 package com.example.moodvie;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.databases.movies;
+import com.example.objects.Person;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.squareup.picasso.Picasso;
 
@@ -23,6 +25,7 @@ public class MoviePage extends AppCompatActivity
     protected <T extends View> T getView(int id) { return super.findViewById(id); }
     private functions _functions = new functions();
     private movies mdb = new movies(this);
+    private Person person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,7 +33,7 @@ public class MoviePage extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_page);
 
-        // Get the bundle objects
+        // Get the bundle objects m
         Bundle b = getIntent().getExtras();
         if (b == null)
             throw new AssertionError("Bundle cannot be empty");
@@ -42,8 +45,10 @@ public class MoviePage extends AppCompatActivity
         final float movieRating = Float.parseFloat(b.getString("movieRating"));
         final String movieCast = b.getString("movieCast");
         final String movieGenres = b.getString("movieGenres");
-        final String username = b.getString("username");
         final String caller = b.getString("caller");
+
+        // De-serialise the person object stored in the Intent extras
+        person = (Person) getIntent().getSerializableExtra("personClass");
 
         /*
          * As the movie page is used when a barcode has been scanned or when someone clicks a movie
@@ -89,7 +94,7 @@ public class MoviePage extends AppCompatActivity
                                  * Try delete the movie out of the users stored movies and notify
                                  * them of the outcome
                                  */
-                                if(mdb.deleteMovie(username, movieTitle))
+                                if(mdb.deleteMovie(person.getUsername(), movieTitle))
                                 {
                                     _functions.createMessage(getApplicationContext(),  getString(R.string.successfully_deleted_movie, movieTitle));
                                     finish();
@@ -137,7 +142,7 @@ public class MoviePage extends AppCompatActivity
                           * if the are then notify them that they already own it otherwise add the
                           * movie
                           */
-                        if(mdb.movieExists(username, movieTitle))
+                        if(mdb.movieExists(person.getUsername(), movieTitle))
                         {
                             _functions.createMessage(getApplicationContext(), getString(R.string.already_own_movie));
                             finish();
@@ -148,7 +153,7 @@ public class MoviePage extends AppCompatActivity
                               * If they don't own the movie then try add it to their stored movies
                               * and notify them of the outcome
                               */
-                            if(mdb.addData(movieTitle, movieOverview, movieCast, movieGenres, String.valueOf(movieRating), moviePoster, username))
+                            if(mdb.addData(movieTitle, movieOverview, movieCast, movieGenres, String.valueOf(movieRating), moviePoster, person.getUsername()))
                             {
                                 _functions.createMessage(getApplicationContext(), getString(R.string.added_movie));
                                 finish();

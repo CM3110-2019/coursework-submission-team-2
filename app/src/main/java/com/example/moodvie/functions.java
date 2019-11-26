@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.widget.Toast;
 
-import com.example.databases.users;
 
 public class functions
 {
