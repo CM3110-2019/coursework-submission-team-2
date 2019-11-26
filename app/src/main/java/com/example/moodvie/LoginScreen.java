@@ -11,12 +11,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.databases.users;
+import com.example.objects.Person;
+import com.google.gson.Gson;
 
 public class LoginScreen extends AppCompatActivity
 {
     protected <T extends View> T getView(int id) { return super.findViewById(id); }
     private final users userDatabase = new users(this);
     private final functions _functions = new functions();
+    private final Person person = new Person();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,18 +45,31 @@ public class LoginScreen extends AppCompatActivity
                     {
                         if(checkInfo(username.getText().toString(), password.getText().toString()))
                         {
+                            person.setName("");
+                            person.setUsername(username.getText().toString());
+                            person.setPassword(password.getText().toString());
+
+                            Gson gson = new Gson();
+                            String json = gson.toJson(person);
+
                             if(remember.isChecked())
                             {
                                 SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences("autoLogin", MODE_PRIVATE).edit();
-                                editor.putString("LOGIN_USERNAME", username.getText().toString()).apply();
+                                editor.putString("USER_LOGGED_IN", json).apply();
                             }
                             else
                             {
                                 SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences("autoLogin", MODE_PRIVATE).edit();
-                                editor.putString("LOGIN_USERNAME", "").apply();
+                                editor.putString("USER_LOGGED_IN", "").apply();
                             }
                             _functions.createMessage(getApplicationContext(), "Authentication Successful");
-                            startActivity(new Intent(getBaseContext(), HomeScreen.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("id", username.getText().toString()));
+
+
+
+                            Intent i = new Intent(LoginScreen.this, HomeScreen.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            i.putExtra("personClass", person);
+                            startActivity(i);
                         }
                         else
                             _functions.createMessage(getApplicationContext(), "Authentication Failed");

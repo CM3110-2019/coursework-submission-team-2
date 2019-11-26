@@ -17,6 +17,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.example.objects.Person;
+import com.google.gson.Gson;
+
 public class SplashScreen extends AppCompatActivity
 {
     protected <T extends View> T getView(int id) { return super.findViewById(id); }
@@ -39,25 +42,35 @@ public class SplashScreen extends AppCompatActivity
             Animation animation = AnimationUtils.loadAnimation(this, R.anim.myanim);
             moodvie.startAnimation(animation);
 
-            new Handler().postDelayed(new Runnable() {
+            new Handler().postDelayed(new Runnable()
+            {
                 @Override
-                public void run() {
+                public void run()
+                {
                     /*
                         Access Shared Preferences and get the 'autoLogin' key to access the 'LOGIN_ID'
                         string
                     */
+                    Gson gson = new Gson();
                     SharedPreferences sp = getSharedPreferences("autoLogin", MODE_PRIVATE);
-                    String userID = sp.getString("LOGIN_USERNAME", "");
+                    String json = sp.getString("USER_LOGGED_IN", "");
+
 
                     // If the key contains information then log the user in automatically
-                    if (!userID.equals("")) {
-                        startActivity(new Intent(getBaseContext(), HomeScreen.class).putExtra("id", userID));
+                    if (!json.equals(""))
+                    {
+                        Person person = gson.fromJson(json, Person.class);
+                        Intent i = new Intent(SplashScreen.this, HomeScreen.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i.putExtra("personClass", person);
+                        startActivity(i);
                         finish();
                     }
 
                     // Otherwise redirect the user to the login page so they can log in/create an account
-                    else {
-                        startActivity(new Intent(getBaseContext(), LoginScreen.class));
+                    else
+                    {
+                        startActivity(new Intent(getApplicationContext(), LoginScreen.class));
                         finish();
                     }
                 }

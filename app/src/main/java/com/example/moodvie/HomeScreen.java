@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.databases.movies;
+import com.example.objects.Person;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class HomeScreen extends AppCompatActivity
     protected <T extends View> T getView(int id) { return super.findViewById(id);}
     functions _functions = new functions();
     private movies mdb = new movies(this);
-    private String username;
+    Person person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -28,9 +29,8 @@ public class HomeScreen extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        // Get the bundle objects and set the username
-        Bundle b = getIntent().getExtras();
-        username = Objects.requireNonNull(b).getString("id");
+        // Deserialise the current_account object
+        person = (Person) getIntent().getSerializableExtra("personClass");
 
         // Click listener for Settings button
         getView(R.id.HomeScreen_settingButton).setOnClickListener(new View.OnClickListener()
@@ -49,7 +49,7 @@ public class HomeScreen extends AppCompatActivity
             public void onClick(View v)
             {
                 if(_functions.checkCameraHardware(getApplicationContext()))
-                    startActivity(new Intent(getApplicationContext(), BarcodeScanner.class).putExtra("id", username));
+                    startActivity(new Intent(getApplicationContext(), BarcodeScanner.class).putExtra("personClass", person));
                 else
                     _functions.createMessage(getApplicationContext(), "No Camera Available");
             }
@@ -99,7 +99,7 @@ public class HomeScreen extends AppCompatActivity
         final ArrayList<String> moviePosters = new ArrayList<>();
 
         // Get all of the user's stored movies from the movie database as a Cursor object
-        final Cursor getAll = mdb.getAllData(username);
+        final Cursor getAll = mdb.getAllData(person.getUsername());
 
         // Iterate over the Cursor object and add the movie information to corresponding ArrayLists
         while(getAll != null && getAll.moveToNext())
@@ -117,7 +117,7 @@ public class HomeScreen extends AppCompatActivity
         gridLayout.removeAllViews();
 
         // Get how many ImageButtons need to be created
-        int total = mdb.getNumberOfRows(username);
+        int total = mdb.getNumberOfRows(person.getUsername());
 
          /*
           * Set up the columns and rows for the grid layout.
@@ -167,7 +167,7 @@ public class HomeScreen extends AppCompatActivity
                     intent.putExtra("movieRating", movieRatings.get(index));
                     intent.putExtra("movieCast", movieCast.get(index));
                     intent.putExtra("movieGenres", movieGenres.get(index));
-                    intent.putExtra("username", username);
+                    intent.putExtra("username", person.getUsername());
                     intent.putExtra("caller", "HomeScreen");
                     startActivity(intent);
                 }
