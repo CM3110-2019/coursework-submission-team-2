@@ -1,6 +1,5 @@
 package com.example.moodvie;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
@@ -22,9 +21,14 @@ import java.util.Objects;
 
 public class MoviePage extends AppCompatActivity
 {
+    // Return the super class of a views ID
     protected <T extends View> T getView(int id) { return super.findViewById(id); }
+
+    // Instantiate the movies database and functions class
     private functions _functions = new functions();
     private movies mdb = new movies(this);
+
+    // Reference variable for a Person object
     private Person person;
 
     @Override
@@ -33,8 +37,10 @@ public class MoviePage extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_page);
 
-        // Get the bundle objects m
+        // Get the bundle objects
         Bundle b = getIntent().getExtras();
+
+        // If the bundles empty throw an AssertionError
         if (b == null)
             throw new AssertionError("Bundle cannot be empty");
 
@@ -56,14 +62,18 @@ public class MoviePage extends AppCompatActivity
          *
          * If the caller of the MoviePage activity was the home screen then the the add movie button
          * has to be removed as they have already added that movie, this applies when the
-         * caller of the activity is the barcode scanner as well- the delete movie button will be
+         * caller of the activity is the barcode scanner also - the delete movie button will be
          * removed instead since it has not yet been added.
          *
          * Appropriate onClickListeners will be set up for the buttons remaining on the page
          */
         switch(Objects.requireNonNull(caller))
         {
-            // If the caller is the HomeScreen activity
+            /*
+             * If the caller is the HomeScreen activity then delete the add movie button from the
+             * View and set up an OnClickListener to handle the button click of the delete movie
+             * button
+             */
             case "HomeScreen":
                 // Remove the add movie button
                 deleteButton((ViewGroup) getView(R.id.btnAddMovie).getParent(), R.id.btnAddMovie);
@@ -125,7 +135,11 @@ public class MoviePage extends AppCompatActivity
                 });
                 break;
 
-            // If the caller is the BarcodeScanner activity
+            /*
+             * If the caller is the BarcodeScanner activity then remove the delete movie button
+             * from the View and set up an OnClickListener to handle the button click of the add
+             * movie button
+             */
             case "BarcodeScanner":
                 // Remove the delete movie button
                 deleteButton((ViewGroup) getView(R.id.btnDeleteMovie).getParent(), R.id.btnDeleteMovie);
@@ -139,8 +153,7 @@ public class MoviePage extends AppCompatActivity
                     {
                          /*
                           * Check if the user already owns the movie they're trying to add;
-                          * if the are then notify them that they already own it otherwise add the
-                          * movie
+                          * if they own it then notify them otherwise add the movie
                           */
                         if(mdb.movieExists(person.getUsername(), movieTitle))
                         {

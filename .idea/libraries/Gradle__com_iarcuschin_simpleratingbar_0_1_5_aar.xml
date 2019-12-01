@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.iarcuschin:simpleratingbar:0.1.5@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ad4de119c69132f4d8716d52ed85532d/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ad4de119c69132f4d8716d52ed85532d/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1b232fd16bac1933e02dbafdd4809cc8/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1b232fd16bac1933e02dbafdd4809cc8/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

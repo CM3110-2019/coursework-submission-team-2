@@ -2,9 +2,7 @@ package com.example.moodvie;
 
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,7 +13,10 @@ import com.example.databases.users;
 
 public class CreateAccount extends AppCompatActivity
 {
+    // Return the super class of a views ID
     protected <T extends View> T getView(int id) { return super.findViewById(id); }
+
+    // Instantiate the users database and functions class
     private final users userDatabase = new users(this);
     private final functions _functions = new functions();
 
@@ -34,12 +35,12 @@ public class CreateAccount extends AppCompatActivity
                 TextView username = getView(R.id.createAccount_username);
                 TextView password = getView(R.id.createAccount_password);
 
-                // If inputs blank
-                if(_functions.isBlank(username.getText().toString(), password.getText().toString(), name.getText().toString(), null))
+                // If any of the TextView inputs are blank
+                if(_functions.isBlank(username.getText().toString()) || _functions.isBlank(password.getText().toString()) || _functions.isBlank(name.getText().toString()))
                     _functions.createMessage(getApplicationContext(), "Fill in all fields to continue.");
                 else
                 {
-                    // If username exists
+                    // If the username exists
                     if(userDatabase.exists(username.getText().toString())) {
                         _functions.createMessage(getApplicationContext(), "This username has already been created.");
                     }

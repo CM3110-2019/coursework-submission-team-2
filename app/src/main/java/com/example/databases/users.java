@@ -112,4 +112,27 @@ public class users extends SQLiteOpenHelper
         // Return the result of the query as a Cursor object
         return db.rawQuery(query, null);
     }
+
+    public void changeUsername(String username, String newUsername)
+    {
+        // Access the database so we can access SQL commands
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Create a query to get a row from the table for a specific user
+        String query = "UPDATE " + USER_TABLE + " SET " + USER_USERNAME + " = '" + newUsername + "'" + " WHERE " + USER_USERNAME + " = '" + username + "'";
+        // Return the result of the query as a Cursor object
+        db.execSQL(query);
+    }
+
+    public void changePassword(String username, String password)
+    {
+        // Access the database so we can access SQL commands
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Create a query to get a row from the table for a specific user
+        String query = "UPDATE " + USER_TABLE + " SET " + USER_PASSWORD + " = '" + password + "'" + " WHERE " + USER_USERNAME + " = '" + username + "'";
+
+        // Return the result of the query as a Cursor object
+        db.execSQL(query);
+    }
 }

@@ -46,7 +46,7 @@ public class LoginScreen extends AppCompatActivity
                 String username = usernameTV.getText().toString();
                 String password = passwordTV.getText().toString();
 
-                if(_functions.isBlank(username, password, null, null))
+                if(_functions.isBlank(username) || _functions.isBlank(password))
                     _functions.createMessage(getApplicationContext(), getString(R.string.fill_in_all_fields));
                 else
                 {

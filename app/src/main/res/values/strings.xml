@@ -38,4 +38,9 @@
     <string name="account_doesnt_exist">This Account Doesn\'t Exist</string>
     <string name="auth_failed">Authentication Failed</string>
     <string name="auth_success">Authentication Successful</string>
+    <string name="change_username">Change Username</string>
+    <string name="change_password">Change Password</string>
+    <string name="change_flag">change %s</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_camera_available">No Camera Available</string>
 </resources>

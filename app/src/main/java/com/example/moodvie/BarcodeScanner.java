@@ -19,7 +19,6 @@ import org.json.JSONObject;
 
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -30,6 +29,7 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
     functions _functions = new functions();
     private Person person;
     private String genreType;
+
     @Override
     public void onCreate(Bundle state)
     {
@@ -66,6 +66,7 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
 
     /**
      * Get the TMDB movie ID based off the movie title
+     *
      * @param url the API url
      */
     public void tmdbAPIGetID(String url)

@@ -17,10 +17,15 @@ import java.util.ArrayList;
 
 public class HomeScreen extends AppCompatActivity
 {
+    // Return the super class of a views ID
     protected <T extends View> T getView(int id) { return super.findViewById(id);}
-    functions _functions = new functions();
+
+    // Instantiate the movies database and functions class
+    private functions _functions = new functions();
     private movies mdb = new movies(this);
-    Person person;
+
+    // Reference variable for a Person object
+    private Person person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,7 +43,7 @@ public class HomeScreen extends AppCompatActivity
             public void onClick(View v)
             {
                 // Start settings page and pass the person object to it
-                startActivity(new Intent(getApplicationContext(), SettingsPage.class));
+                startActivity(new Intent(getApplicationContext(), SettingsPage.class).putExtra("personClass", person));
             }
         });
 
@@ -55,7 +60,7 @@ public class HomeScreen extends AppCompatActivity
                 if(_functions.checkCameraHardware(getApplicationContext()))
                     startActivity(new Intent(getApplicationContext(), BarcodeScanner.class).putExtra("personClass", person));
                 else
-                    _functions.createMessage(getApplicationContext(), "No Camera Available");
+                    _functions.createMessage(getApplicationContext(), getString(R.string.no_camera_available));
             }
         });
 
@@ -72,7 +77,7 @@ public class HomeScreen extends AppCompatActivity
                 if(_functions.checkCameraHardware(getApplicationContext()))
                     startActivity(new Intent(getApplicationContext(), FaceScan.class));
                 else
-                    _functions.createMessage(getApplicationContext(), "No Camera Available");
+                    _functions.createMessage(getApplicationContext(), getString(R.string.no_camera_available));
             }
         });
 
@@ -83,7 +88,7 @@ public class HomeScreen extends AppCompatActivity
             public void onClick(View view)
             {
                 TextView search = getView(R.id.etSearchMovie);
-                if(_functions.isBlank(null,null,null,search.getText().toString()))
+                if(_functions.isBlank(search.getText().toString()))
                     _functions.createMessage(getApplicationContext(), "Enter a search query");
                 else
                     _functions.createMessage(getApplicationContext(), "Do something");
@@ -124,7 +129,8 @@ public class HomeScreen extends AppCompatActivity
 
         // Get how many ImageButtons need to be created
         int total = mdb.getNumberOfRows(person.getUsername());
-         /*
+
+        /*
           * Set up the columns and rows for the grid layout.
           *
           * When it comes to creating the rows, Java will round a number down when integer division
@@ -132,7 +138,7 @@ public class HomeScreen extends AppCompatActivity
           * additional row.
           *
           * Example;
-          * 5 movies are stored in the movie database and 3 movie posters are needed per each row
+          * 5 movies are stored in the movie database and 3 movie posters are needed per row
           * therefore the number of rows needed is 5/3 ~=  1.6 this gets rounded to 1 because of
           * integer division so an additional row will need to be added (+1) to span 5 movies
           * across two rows.
@@ -163,7 +169,7 @@ public class HomeScreen extends AppCompatActivity
                     /*
                      *  When the ImageButton is clicked open the MoviePage activity
                      *  and populate it with the movies information based on the index position
-                     *  in the ArrayLists
+                     *  of the ArrayLists
                      */
                     Intent intent = new Intent(HomeScreen.this, MoviePage.class);
                     intent.putExtra("movieTitle", movieNames.get(index));

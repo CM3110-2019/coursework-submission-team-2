@@ -25,7 +25,9 @@ import java.util.Map;
 
 public class SplashScreen extends AppCompatActivity
 {
+    // Return the super class of a views ID
     protected <T extends View> T getView(int id) { return super.findViewById(id); }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -46,7 +48,7 @@ public class SplashScreen extends AppCompatActivity
     /**
      * Handle the grant results from the permissions asked on the first launch of the app.
      *
-     * If the permission was granted then run the splash screen otherwise keep prompting for the
+     * If the permission were granted then run the splash screen otherwise keep prompting for the
      * camera permissions to be granted until they are.
      *
      * @param requestCode  The request code passed to onRequestPermissionsResult()
@@ -58,7 +60,7 @@ public class SplashScreen extends AppCompatActivity
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {
         /*
-         * Create a HashMap that sets the key as the permission and the value as the grant result
+         * Create a HashMap that sets the key, value pair as the permission and the grant result
          * of the permission
          *
          * Essentially its going to loop through all of the permissions that have been asked for
@@ -76,7 +78,8 @@ public class SplashScreen extends AppCompatActivity
 
         /*
          * If the user denies the camera permission then keep prompting for it otherwise run
-         * the splash screen if they grant the permission
+         * the splash screen if they grant the permission - this essentially creates an infinite
+         * loop until they grant the permission
          */
         if(PermissionsMap.get(Manifest.permission.CAMERA) != 0)
             ActivityCompat.requestPermissions(SplashScreen.this, new String[]{Manifest.permission.CAMERA}, 1);
@@ -90,7 +93,7 @@ public class SplashScreen extends AppCompatActivity
         // Get the ImageView of the Moodvie logo
         ImageView moodvie = getView(R.id.SplashScreen_moodvie);
 
-        // Animate the Moodvie logo by applying an animation from AnimationUtils on it
+        // Animate the Moodvie logo by applying an animation to it
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.myanim);
         moodvie.startAnimation(animation);
 
@@ -118,19 +121,14 @@ public class SplashScreen extends AppCompatActivity
                  */
                 if (!loginKey.equals(""))
                 {
-                    // Create a Gson object
-                    Gson gson = new Gson();
-
                     /*
                      * De-serialize the "USER_LOGGED_IN" JSON string in the Shared Preferences back
                      * into a Person() object
                      */
+                    Gson gson = new Gson();
                     Person person = gson.fromJson(loginKey, Person.class);
 
-                    /*
-                     * Automatically log the user in, put them to the HomeScreen activity and
-                     * pass the person object as an extra
-                     */
+                    // Automatically log the user in and pass the person object as an extra
                     startActivity(new Intent(SplashScreen.this, HomeScreen.class).putExtra("personClass", person));
                     finish();
                 }
