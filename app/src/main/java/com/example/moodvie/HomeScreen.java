@@ -202,7 +202,7 @@ public class HomeScreen extends AppCompatActivity
             });
 
             // Set the ImageButton image as the movie poster using Picasso
-            Picasso.get().load("https://image.tmdb.org/t/p/w185" + moviePosters.get(index)).resize(0, 600).into(imageButton);
+            Picasso.get().load(getString(R.string.image_path, moviePosters.get(index))).resize(0, 600).into(imageButton);
 
             // Space out the ImageButton with some padding
             imageButton.setPadding(0, 0, 12, 20);
