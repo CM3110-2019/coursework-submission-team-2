@@ -24,7 +24,7 @@ public class users extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         // Create the table
-        String createTable = "CREATE TABLE " + USER_TABLE + " (" + USER_USERNAME + " VARCHAR(10) PRIMARY KEY, " + USER_PASSWORD + " VARCHAR(10), " + USER_NAME + " VARCHAR(20))";
+        String createTable = "CREATE TABLE " + USER_TABLE + " (" + USER_USERNAME + " VARCHAR(10) PRIMARY KEY, " + USER_PASSWORD + " VARCHAR(10))";
         db.execSQL(createTable);
     }
 
@@ -36,103 +36,77 @@ public class users extends SQLiteOpenHelper
     }
 
     /**
+     * Insert a new user into the database
      *
      * @param username The username to be inserted
      * @param password The password to be inserted
-     * @return TRUE if the result is inserted else FALSE
+     * @return         TRUE if the result is inserted else FALSE
      */
-    public boolean addData(String username, String password, String name)
+    public boolean addData(String username, String password)
     {
-        // Access the database so we can access SQL commands
         SQLiteDatabase db = this.getWritableDatabase();
-
-        // Create an empty set of values that we can add information to
         ContentValues content = new ContentValues();
 
-        // Add the information to the set
         content.put(USER_USERNAME, username);
         content.put(USER_PASSWORD, password);
-        content.put(USER_NAME, name);
 
-        // Try insert the contents of the content set into the database as a new row
         long result = db.insert(USER_TABLE, null, content);
 
-        // return the result of the insertion
         return result != 1;
     }
 
     /**
-     * Get all of the information from USER_TABLE
-     * @return The information from USER_TABLE
-     */
-    public Cursor getAllData()
-    {
-        // Access the database so we can access SQL commands
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        // Create a query to get all of the data from USER_TABLE
-        String query = "SELECT * FROM " + USER_TABLE;
-
-        // Return the result of the query as a Cursor object
-        return db.rawQuery(query, null);
-    }
-
-    /**
-     * Check if a user exists in database
+     * Check if a user exists in database by creating a query that tries to select 1 row if it exists
+     *
      * @param name The username that is being checked
-     * @return TRUE if a user with that name is found, otherwise FALSE
+     * @return     TRUE if a user with that name is found, otherwise FALSE
      */
     public Boolean exists(String name)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-
         String query = "SELECT " + 1 + " FROM " + USER_TABLE + " WHERE " + USER_USERNAME + " = '" + name + "' COLLATE NOCASE " + "";
-
         Cursor cursor = db.rawQuery(query, null);
-
         long rows = cursor.getCount();
         cursor.close();
-
         return rows > 0;
     }
 
     /**
-     * Gets a row from the table
+     * Get all of the row from the database based on a specific username
+     *
      * @param username The user that's being looked for
-     * @return The row of the user being looked for
+     * @return         All the rows that the user is present in as a Cursor object
      */
     public Cursor getRow(String username)
     {
-        // Access the database so we can access SQL commands
         SQLiteDatabase db = this.getWritableDatabase();
-
-        // Create a query to get a row from the table for a specific user
         String query = "SELECT * FROM " + USER_TABLE + " WHERE " + USER_USERNAME + " = '" + username + "'";
-
-        // Return the result of the query as a Cursor object
         return db.rawQuery(query, null);
     }
 
+    /**
+     * Change the username of an account
+     *
+     * @param username    The old username
+     * @param newUsername The new username to be set
+     */
     public void changeUsername(String username, String newUsername)
     {
-        // Access the database so we can access SQL commands
         SQLiteDatabase db = this.getWritableDatabase();
-
-        // Create a query to get a row from the table for a specific user
         String query = "UPDATE " + USER_TABLE + " SET " + USER_USERNAME + " = '" + newUsername + "'" + " WHERE " + USER_USERNAME + " = '" + username + "'";
-        // Return the result of the query as a Cursor object
         db.execSQL(query);
     }
 
+    /**
+     * Change the password of an account for a specific username
+     *
+     * @param username The username of the account
+     * @param password The new password to be set
+     */
     public void changePassword(String username, String password)
     {
-        // Access the database so we can access SQL commands
         SQLiteDatabase db = this.getWritableDatabase();
-
-        // Create a query to get a row from the table for a specific user
         String query = "UPDATE " + USER_TABLE + " SET " + USER_PASSWORD + " = '" + password + "'" + " WHERE " + USER_USERNAME + " = '" + username + "'";
-
-        // Return the result of the query as a Cursor object
         db.execSQL(query);
     }
 }

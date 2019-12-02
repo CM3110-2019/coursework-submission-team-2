@@ -17,29 +17,19 @@
         app:layout_constraintEnd_toStartOf="@+id/createAccount_username"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/createAccount_name"
-        android:layout_width="366dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginRight="116dp"
-        android:hint="@string/prompt_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/createAccount_username"
         android:layout_width="366dp"
         android:layout_height="42dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="100dp"
         android:ems="10"
         android:hint="@string/prompt_username"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.739"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createAccount_name" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/createAccount_password"
@@ -50,7 +40,7 @@
         android:hint="@string/prompt_password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.739"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createAccount_username" />
 

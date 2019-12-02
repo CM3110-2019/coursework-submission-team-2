@@ -19,15 +19,6 @@
         android:contentDescription="@string/image_description"
         />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/createAccount_name"
-        android:layout_width="366dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="52dp"
-        android:hint="@string/prompt_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moodvieLogo" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/createAccount_username"
@@ -39,7 +30,7 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createAccount_name" />
+        app:layout_constraintTop_toBottomOf="@+id/moodvieLogo" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/createAccount_password"

@@ -10,24 +10,12 @@ import java.io.Serializable;
  */
 public class Person implements Serializable
 {
-    // Instance variables for the name, username and password
-    private String name, username, password;
+    // Instance variables for the username and password
+    private String username, password;
 
     // Construct the class and set up the instance variables
     public Person()
     {
-        this.name = name;
-        this.username = username;
-        this.password = password;
-    }
-
-    /**
-     * Get the name of the account
-     * @return the name of the account
-     */
-    public String getName()
-    {
-        return this.name;
     }
 
     /**
@@ -46,15 +34,6 @@ public class Person implements Serializable
     public String getPassword()
     {
         return password;
-    }
-
-    /**
-     * Changes the name of the account
-     * @param newName The new name
-     */
-    public void setName(String newName)
-    {
-        this.name = newName;
     }
 
     /**

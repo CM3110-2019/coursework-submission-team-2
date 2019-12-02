@@ -16,13 +16,14 @@ import com.google.gson.Gson;
 
 public class LoginScreen extends AppCompatActivity
 {
-    protected <T extends View> T getView(int id) { return super.findViewById(id); }
+    // Return the super class of a views ID
+    private <T extends View> T getView(int id) { return super.findViewById(id); }
 
-    // Include the users database and the functions class
+    // Instantiate the movies database and functions class
     private final users userDatabase = new users(this);
     private final functions _functions = new functions();
 
-    // Create a Person object
+    // Reference variable for a Person object
     private final Person person = new Person();
 
     @Override
@@ -37,8 +38,8 @@ public class LoginScreen extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                // Get the required Views username and password TextViews
-                TextView usernameTV = (TextView) getView(R.id.LoginScreen_username);
+                // Get the required TextViews
+                TextView usernameTV = getView(R.id.LoginScreen_username);
                 TextView passwordTV = getView(R.id.LoginScreen_password);
                 Switch remember = getView(R.id.LoginScreen_rememberSwitch);
 
@@ -46,6 +47,11 @@ public class LoginScreen extends AppCompatActivity
                 String username = usernameTV.getText().toString();
                 String password = passwordTV.getText().toString();
 
+                /*
+                 * Check if the username or password are blank, if either of them are then notify
+                 * the user otherwise check if the username exists. If the username exists then
+                 * try log into the account otherwise notify the user that the account doesn't exist
+                 */
                 if(_functions.isBlank(username) || _functions.isBlank(password))
                     _functions.createMessage(getApplicationContext(), getString(R.string.fill_in_all_fields));
                 else
@@ -59,25 +65,22 @@ public class LoginScreen extends AppCompatActivity
                          */
                         if(checkInfo(username, password))
                         {
-                            // Create a new Gson object
-                            Gson gson = new Gson();
+                            // Set the username and password of the person object
+                            person.setUsername(username);
+                            person.setPassword(password);
 
                             // Open a Shared Preferences editor to edit the "autoLogin" preference
                             SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences("autoLogin", MODE_PRIVATE).edit();
 
-                            // Set the name, username and password of the person object
-                            person.setName("");
-                            person.setUsername(username);
-                            person.setPassword(password);
-
-                            // Serialize the person object into a JSON string
+                            // Serialize the person object into a JSON string using Gson
+                            Gson gson = new Gson();
                             String serializedPerson = gson.toJson(person);
 
                             /*
                              * If the remember me switch is enabled then the "USER_LOGGED_IN"
                              * key in the "autoLogin" preference will hold the serialized person
                              * object as a JSON string that can be de-serialized back into a Person()
-                             * object for automatic logins otherwise the value of the "autoLogin"
+                             * object for automatic logging in otherwise the value of the "autoLogin"
                              * key will store an empty string.
                              */
                             if(remember.isChecked())
@@ -122,7 +125,7 @@ public class LoginScreen extends AppCompatActivity
      *
      * @param username  The username entered in the TextView of the login page
      * @param password  The password entered in the TextView of the login page
-     * @return true if the details match otherwise false
+     * @return          True if the details match otherwise False
      */
     private Boolean checkInfo(String username, String password)
     {

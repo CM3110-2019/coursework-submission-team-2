@@ -14,7 +14,7 @@ import com.example.databases.users;
 public class CreateAccount extends AppCompatActivity
 {
     // Return the super class of a views ID
-    protected <T extends View> T getView(int id) { return super.findViewById(id); }
+    private <T extends View> T getView(int id) { return super.findViewById(id); }
 
     // Instantiate the users database and functions class
     private final users userDatabase = new users(this);
@@ -26,37 +26,39 @@ public class CreateAccount extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
+        // OnClickListener for the Create Account Button
         getView(R.id.createAccount_createButton).setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                TextView name = getView(R.id.createAccount_name);
+                // Get the required TextViews
                 TextView username = getView(R.id.createAccount_username);
                 TextView password = getView(R.id.createAccount_password);
 
-                // If any of the TextView inputs are blank
-                if(_functions.isBlank(username.getText().toString()) || _functions.isBlank(password.getText().toString()) || _functions.isBlank(name.getText().toString()))
+                // Check if any of the TextViews are blank, if they're not try create the account
+                if(_functions.isBlank(username.getText().toString()) || _functions.isBlank(password.getText().toString()))
                     _functions.createMessage(getApplicationContext(), "Fill in all fields to continue.");
+
                 else
                 {
-                    // If the username exists
+                    // If the username exists in the database
                     if(userDatabase.exists(username.getText().toString())) {
                         _functions.createMessage(getApplicationContext(), "This username has already been created.");
                     }
                     else
                     {
-                        // If insertion is successful
-                        if(userDatabase.addData(username.getText().toString(), password.getText().toString(), name.getText().toString()))
+                        /*
+                         * Try add the user to the user database and launch the login page otherwise
+                         * notify them that creating the account failed
+                         */
+                        if(userDatabase.addData(username.getText().toString(), password.getText().toString()))
                         {
                             _functions.createMessage(getApplicationContext(), "Successfully created the account.");
                             startActivity(new Intent(getBaseContext(), LoginScreen.class));
                         }
                         else
-                        {
-                            _functions.createMessage(getApplicationContext(), userDatabase.exists(username.getText().toString()).toString());
                             _functions.createMessage(getApplicationContext(), "Failed to create your account.");
-                        }
                     }
                 }
             }

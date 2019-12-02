@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -19,12 +18,12 @@ import com.example.objects.Person;
 public class SettingsPage extends AppCompatActivity
 {
     // Return the super class of a views ID
-    protected <T extends View> T getView(int id) { return super.findViewById(id);}
+    private <T extends View> T getView(int id) { return super.findViewById(id);}
 
     // Include the functions class, users database and movies database
-    private functions _functions = new functions();
-    private users user = new users(this);
-    private movies movie = new movies(this);
+    private final functions _functions = new functions();
+    private final users user = new users(this);
+    private final movies movie = new movies(this);
 
     // Reference variable for a Person object
     private Person person;
@@ -121,17 +120,19 @@ public class SettingsPage extends AppCompatActivity
                 // Get the input text
                 String inputText = input.getText().toString();
 
-                // Check if the input text is not blank
+                /*
+                 * If the input of the text is not blank then switch the flag to carry out the
+                 * correct action otherwise notify the user that their input was blank
+                 */
                 if(!_functions.isBlank(inputText))
                 {
-                    // Switch the flag and carry out the correct action
                     switch(flag)
                     {
                         case "username":
                             /*
                              *  If the username doesn't exist in the user database then update the
                              *  username to the new one and change the movie ownership to be owned
-                             *  by the new username. If the username is taken then notify the user.
+                             *  by the new username. If the username is taken then notify the user
                              */
                             if(!user.exists(inputText))
                             {
@@ -149,7 +150,7 @@ public class SettingsPage extends AppCompatActivity
                     }
 
                     // Log the user out
-                    _functions.createMessage(getApplicationContext(), "Logging out..");
+                    _functions.createMessage(getApplicationContext(), getString(R.string.logging_out));
                     logout();
                 }
                 else

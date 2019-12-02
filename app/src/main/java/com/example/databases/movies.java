@@ -40,8 +40,8 @@ public class movies extends SQLiteOpenHelper
     }
 
     /**
-     * Add a movie into the database as a new row by setting up a ContentValues() set to store the
-     * movie information
+     * Insert a movie into the database as a new row by setting up a ContentValues() set to store
+     * movie information before trying to insert it
      *
      * @param name      The name of the movie
      * @param synopsis  The overview of the movie
@@ -54,13 +54,9 @@ public class movies extends SQLiteOpenHelper
      */
     public boolean addData(String name, String synopsis, String cast, String genres, String rating, String poster, String username)
     {
-        // Access the database so we can access SQL commands
         SQLiteDatabase db = this.getWritableDatabase();
-
-        // Create an empty set of values that we can add information to
         ContentValues content = new ContentValues();
 
-        // Add the information to the set
         content.put(MOVIE_NAME, name);
         content.put(MOVIE_SYNOPSIS, synopsis);
         content.put(MOVIE_CAST, cast);
@@ -69,10 +65,7 @@ public class movies extends SQLiteOpenHelper
         content.put(MOVIE_POSTER, poster);
         content.put(USERNAME, username);
 
-        // Try insert the contents of the content set into the database as a new row
         long result = db.insert(MOVIE_TABLE, null, content);
-
-        // return the result of the insertion
         return result != 1;
     }
 
@@ -84,30 +77,8 @@ public class movies extends SQLiteOpenHelper
      */
     public Cursor getAllData(String username)
     {
-        // Access the database so we can access SQL commands
         SQLiteDatabase db = this.getWritableDatabase();
-
-        // Create a query to get all of the data from MOVIE_TABLE
         String query = "SELECT * FROM " + MOVIE_TABLE + " WHERE " + USERNAME + " = '" + username + "'";
-
-        // Return the result of the query as a Cursor object
-        return db.rawQuery(query, null);
-    }
-
-    /**
-     * Gets a row from the table
-     *
-     * @param username The user that's being looked for
-     */
-    public Cursor getRow(String username)
-    {
-        // Access the database so we can access SQL commands
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        // Create a query to get a row from the table for a specific user
-        String query = "SELECT * FROM " + MOVIE_TABLE + " WHERE " + USERNAME + " = '" + username + "'";
-
-        // Return the result of the query as a Cursor object
         return db.rawQuery(query, null);
     }
 
@@ -120,16 +91,9 @@ public class movies extends SQLiteOpenHelper
      */
     public Boolean movieExists(String username, String movie)
     {
-        // Access the database so we can access SQL commands
         SQLiteDatabase db = this.getWritableDatabase();
-
-        // Create a query to check if a specific user exists in USER_TABLE
         String query = "SELECT * FROM " + MOVIE_TABLE + " WHERE " + MOVIE_NAME + " = '" + movie + "'" + " and " + USERNAME + " = '" + username + "'";
-
-        // Create a Cursor object from the query
         Cursor cursor = db.rawQuery(query, null);
-
-        //
         return getCount(cursor) > 0;
     }
 
@@ -147,23 +111,16 @@ public class movies extends SQLiteOpenHelper
     }
 
     /**
-     * Get all the rows a specified user in the table and return how many rows they have
+     * Get all the rows of a specified user in the table and return how many rows they have
      *
      * @param username The username of who owns the movie
      * @return         The number of rows the user is found in
      */
     public int getNumberOfRows(String username)
     {
-        // Access the database so we can access SQL commands
         SQLiteDatabase db = this.getReadableDatabase();
-
-        // Create a query to get a row from the table for a specific user
         String query = "SELECT * FROM " + MOVIE_TABLE + " WHERE " + USERNAME + " = '" + username + "'";
-
-        // Create a Cursor object from the query
         Cursor cursor = db.rawQuery(query, null);
-
-        // Return the number of rows
         return getCount(cursor);
     }
 
@@ -173,19 +130,21 @@ public class movies extends SQLiteOpenHelper
      * @param c A cursor object returned from a SQL query
      * @return  The number of rows found in the cursor
      */
-    public int getCount(Cursor c)
+    private int getCount(Cursor c)
     {
         return c.getCount();
     }
 
+    /**
+     * Change the username of who owns a movie in the database
+     *
+     * @param username    The old username of who owned the movie
+     * @param newUsername The new username of who is going to own the movie
+     */
     public void changeMovieOwner(String username, String newUsername)
     {
-        // Access the database so we can access SQL commands
         SQLiteDatabase db = this.getWritableDatabase();
-
-        // Create a query to get a row from the table for a specific user
         String query = "UPDATE " + MOVIE_TABLE + " SET " + USERNAME + " = '" + newUsername + "'" + " WHERE " + USERNAME + " = '" + username + "'";
-        // Return the result of the query as a Cursor object
         db.execSQL(query);
     }
 }

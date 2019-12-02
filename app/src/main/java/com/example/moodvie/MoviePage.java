@@ -22,11 +22,11 @@ import java.util.Objects;
 public class MoviePage extends AppCompatActivity
 {
     // Return the super class of a views ID
-    protected <T extends View> T getView(int id) { return super.findViewById(id); }
+    private <T extends View> T getView(int id) { return super.findViewById(id); }
 
     // Instantiate the movies database and functions class
-    private functions _functions = new functions();
-    private movies mdb = new movies(this);
+    private final functions _functions = new functions();
+    private final movies mdb = new movies(this);
 
     // Reference variable for a Person object
     private Person person;

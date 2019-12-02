@@ -25,20 +25,29 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class BarcodeScanner extends Activity implements ZXingScannerView.ResultHandler
 {
+    /*
+     * Instance variables;
+     * ZXingScannerView object to store a scanner view
+     * Person object to store a person class
+     * String object to store a genre
+     */
     private ZXingScannerView mScannerView;
-    functions _functions = new functions();
     private Person person;
     private String genreType;
+
+    // Include the functions class
+    private final functions _functions = new functions();
 
     @Override
     public void onCreate(Bundle state)
     {
         super.onCreate(state);
-        mScannerView = new ZXingScannerView(this);
 
         // De-serialise the person object stored in the Intent extras
         person = (Person) getIntent().getSerializableExtra("personClass");
 
+        // Set the scanner view
+        mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);
     }
 
@@ -65,11 +74,11 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
     }
 
     /**
-     * Get the TMDB movie ID based off the movie title
+     * Run a TMDB API to get the ID of a movie based off the movie title
      *
      * @param url the API url
      */
-    public void tmdbAPIGetID(String url)
+    private void tmdbAPIGetID(String url)
     {
         // Create a Volley RequestQueue object to contain HTTP requests
         RequestQueue mRequestQueue = Volley.newRequestQueue(this);
@@ -131,10 +140,11 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
     }
 
     /**
-     * Get the movie information based on the movie ID
-     * @param url the API url passed in
+     * Run a TMDB API to get information for a movie based on the movies ID
+     *
+     * @param url the API url
      */
-    public void tmdbAPIMovieInformation(String url)
+    private void tmdbAPIMovieInformation(String url)
     {
         // Create a Volley RequestQueue object to contain HTTP requests
         RequestQueue mRequestQueue = Volley.newRequestQueue(this);
@@ -175,10 +185,7 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
                         castList.add(castMember.getString("name"));
                     }
 
-                    /*
-                     *  Return the main genre
-                     */
-
+                    // Return the main genre
                     for(int i=0; i<1;i++)
                     {
                         JSONObject genre = genres.getJSONObject(i);
@@ -255,7 +262,12 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
         mRequestQueue.add(stringRequest);
     }
 
-    public void upcitemdbAPI(String url)
+    /**
+     * Use the upcitemdb API to get the name of a movie based on the movies UPC barcode
+     *
+     * @param url The API url
+     */
+    private void upcitemdbAPI(String url)
     {
         // Create a Volley RequestQueue object to contain HTTP requests
         RequestQueue mRequestQueue = Volley.newRequestQueue(this);
@@ -267,6 +279,7 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
         {
             /**
              * Get the response of the HTTP request and handle it
+             *
              * @param response The HTTP response
              */
             @Override
@@ -277,13 +290,13 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
                     // Set up an initial JSONObject to map the HTTP response since it returns JSON
                     JSONObject rootObject = new JSONObject(response);
 
-                    // Set up items JSON array and '0' JSON object
+                    // Set up the items JSON array and 0 JSON object
                     JSONArray items = rootObject.getJSONArray("items");
                     JSONObject zero = items.getJSONObject(0);
 
                     /*
                      *  Get the movie title and strip it of special character that can sometimes
-                     *  appear such as '()' '[]' using regex
+                     *  appear such as '()' using regex
                      */
                     String movieTitle = zero.getString("title").replaceAll("\\(.*?\\) ?", "");
 

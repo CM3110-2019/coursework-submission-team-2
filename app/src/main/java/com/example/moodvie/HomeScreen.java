@@ -18,11 +18,11 @@ import java.util.ArrayList;
 public class HomeScreen extends AppCompatActivity
 {
     // Return the super class of a views ID
-    protected <T extends View> T getView(int id) { return super.findViewById(id);}
+    private <T extends View> T getView(int id) { return super.findViewById(id);}
 
     // Instantiate the movies database and functions class
-    private functions _functions = new functions();
-    private movies mdb = new movies(this);
+    private final functions _functions = new functions();
+    private final movies mdb = new movies(this);
 
     // Reference variable for a Person object
     private Person person;
@@ -42,7 +42,7 @@ public class HomeScreen extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                // Start settings page and pass the person object to it
+                // Start the settings page and pass the person object to it
                 startActivity(new Intent(getApplicationContext(), SettingsPage.class).putExtra("personClass", person));
             }
         });
@@ -101,6 +101,12 @@ public class HomeScreen extends AppCompatActivity
     {
         super.onResume();
 
+        // Create the movie grid
+        createMovieGrid(mdb.getAllData(person.getUsername()));
+    }
+
+    private void createMovieGrid(Cursor movieRows)
+    {
         // Create a series of ArrayLists to hold movie information
         final ArrayList<String> movieNames = new ArrayList<>();
         final ArrayList<String> movieOverviews = new ArrayList<>();
@@ -109,18 +115,14 @@ public class HomeScreen extends AppCompatActivity
         final ArrayList<String> movieRatings = new ArrayList<>();
         final ArrayList<String> moviePosters = new ArrayList<>();
 
-        // Get all of the stored movies for the user logged in as a Cursor object
-        final Cursor getAll = mdb.getAllData(person.getUsername());
-
         // Iterate over the Cursor object and add the movie information to corresponding ArrayLists
-        while(getAll != null && getAll.moveToNext())
-        {
-            movieNames.add(getAll.getString(0));
-            movieOverviews.add(getAll.getString(1));
-            movieCast.add(getAll.getString(2));
-            movieGenres.add(getAll.getString(3));
-            movieRatings.add(getAll.getString(4));
-            moviePosters.add(getAll.getString(5));
+        while (movieRows != null && movieRows.moveToNext()) {
+            movieNames.add(movieRows.getString(0));
+            movieOverviews.add(movieRows.getString(1));
+            movieCast.add(movieRows.getString(2));
+            movieGenres.add(movieRows.getString(3));
+            movieRatings.add(movieRows.getString(4));
+            moviePosters.add(movieRows.getString(5));
         }
 
         // Get the grid layout and remove the old one so a new one can be created on each resume
@@ -131,18 +133,18 @@ public class HomeScreen extends AppCompatActivity
         int total = mdb.getNumberOfRows(person.getUsername());
 
         /*
-          * Set up the columns and rows for the grid layout.
-          *
-          * When it comes to creating the rows, Java will round a number down when integer division
-          * occurs between 2 integer values therefore +1 will need to be added to it to create an
-          * additional row.
-          *
-          * Example;
-          * 5 movies are stored in the movie database and 3 movie posters are needed per row
-          * therefore the number of rows needed is 5/3 ~=  1.6 this gets rounded to 1 because of
-          * integer division so an additional row will need to be added (+1) to span 5 movies
-          * across two rows.
-          */
+         * Set up the columns and rows for the grid layout.
+         *
+         * When it comes to creating the rows, Java will round a number down when integer division
+         * occurs between 2 integer values therefore +1 will need to be added to it to create an
+         * additional row.
+         *
+         * Example;
+         * 5 movies are stored in the movie database and 3 movie posters are needed per row
+         * therefore the number of rows needed is 5/3 ~=  1.6 this gets rounded to 1 because of
+         * integer division so an additional row will need to be added (+1) to span 5 movies
+         * across two rows.
+         */
         int column = 3;
         int row = total / column + 1;
         gridLayout.setColumnCount(column);
@@ -152,8 +154,7 @@ public class HomeScreen extends AppCompatActivity
          * Create a loop that iterates for the number of movies the user has so that the grid view
          * can be dynamically populated with movie posters and movie information
          */
-        for (int i = 0; i < total; i++)
-        {
+        for (int i = 0; i < total; i++) {
             // Create a temporary index to hold the value of i
             final int index = i;
 
@@ -161,11 +162,9 @@ public class HomeScreen extends AppCompatActivity
             ImageButton imageButton = new ImageButton(this);
 
             // Click listener for when the ImageButton is clicked
-            imageButton.setOnClickListener(new View.OnClickListener()
-            {
+            imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v)
-                {
+                public void onClick(View v) {
                     /*
                      *  When the ImageButton is clicked open the MoviePage activity
                      *  and populate it with the movies information based on the index position
