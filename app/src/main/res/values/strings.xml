@@ -35,6 +35,7 @@
     <string name="successfully_deleted_movie">%s has been deleted.</string>
     <string name="failed_to_add_movie">Failed to add movie to your stored list</string>
     <string name="fill_in_all_fields">Fill in all fields to continue.</string>
+    <string name="fill_in_field">Fill in the field to continue.</string>
     <string name="account_doesnt_exist">This Account Doesn\'t Exist</string>
     <string name="auth_failed">Authentication Failed</string>
     <string name="auth_success">Authentication Successful</string>
@@ -44,4 +45,10 @@
     <string name="cancel">Cancel</string>
     <string name="no_camera_available">No Camera Available</string>
     <string name="logging_out">Logging out..</string>
+    <string name="cant_connect_to_api">Can\'t Connect To API - Check You Are Connected To The Internet</string>
+    <string name="barcode_not_found">This Barcode Was Not Found In The Database</string>
+    <string name="username_exists">This username has already been created.</string>
+    <string name="successfully_created_account">Successfully created the account.</string>
+    <string name="failed_to_create_account">Failed to create your account.</string>
+    <string name="image_path">https://image.tmdb.org/t/p/w185%s</string>
 </resources>

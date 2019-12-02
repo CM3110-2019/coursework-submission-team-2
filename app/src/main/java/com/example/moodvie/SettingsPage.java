@@ -140,7 +140,7 @@ public class SettingsPage extends AppCompatActivity
                                 movie.changeMovieOwner(person.getUsername(), inputText);
                             }
                             else
-                                _functions.createMessage(getApplicationContext(), "This username is taken");
+                                _functions.createMessage(getApplicationContext(), getString(R.string.username_exists));
                             break;
 
                         case "password":
@@ -155,7 +155,7 @@ public class SettingsPage extends AppCompatActivity
                 }
                 else
                     // If the input is blank notify the user
-                    _functions.createMessage(getApplicationContext(), "Fill in a value");
+                    _functions.createMessage(getApplicationContext(), getString(R.string.fill_in_field));
             }
         });
 

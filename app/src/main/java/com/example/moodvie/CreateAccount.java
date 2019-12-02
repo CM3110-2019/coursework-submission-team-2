@@ -38,13 +38,13 @@ public class CreateAccount extends AppCompatActivity
 
                 // Check if any of the TextViews are blank, if they're not try create the account
                 if(_functions.isBlank(username.getText().toString()) || _functions.isBlank(password.getText().toString()))
-                    _functions.createMessage(getApplicationContext(), "Fill in all fields to continue.");
+                    _functions.createMessage(getApplicationContext(), getString(R.string.fill_in_all_fields));
 
                 else
                 {
                     // If the username exists in the database
                     if(userDatabase.exists(username.getText().toString())) {
-                        _functions.createMessage(getApplicationContext(), "This username has already been created.");
+                        _functions.createMessage(getApplicationContext(), getString(R.string.username_exists));
                     }
                     else
                     {
@@ -54,11 +54,11 @@ public class CreateAccount extends AppCompatActivity
                          */
                         if(userDatabase.addData(username.getText().toString(), password.getText().toString()))
                         {
-                            _functions.createMessage(getApplicationContext(), "Successfully created the account.");
+                            _functions.createMessage(getApplicationContext(), getString(R.string.successfully_created_account));
                             startActivity(new Intent(getBaseContext(), LoginScreen.class));
                         }
                         else
-                            _functions.createMessage(getApplicationContext(), "Failed to create your account.");
+                            _functions.createMessage(getApplicationContext(), getString(R.string.failed_to_create_account));
                     }
                 }
             }

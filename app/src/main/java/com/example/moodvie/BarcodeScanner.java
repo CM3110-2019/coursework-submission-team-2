@@ -116,7 +116,7 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
                 catch (JSONException e)
                 {
                     finish();
-                    _functions.createMessage(getApplicationContext(), "This Barcode Was Not Found In The Database");
+                    _functions.createMessage(getApplicationContext(), getString(R.string.barcode_not_found));
                 }
             }
         }, new Response.ErrorListener()
@@ -131,7 +131,7 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
             public void onErrorResponse(VolleyError error)
             {
                 finish();
-                _functions.createMessage(getApplicationContext(), "Can't Connect To API - Check You Are Connected To The Internet");
+                _functions.createMessage(getApplicationContext(), getString(R.string.cant_connect_to_api));
             }
         });
 
@@ -239,7 +239,7 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
                 catch (JSONException e)
                 {
                     finish();
-                    _functions.createMessage(getApplicationContext(), "This Barcode Was Not Found In The Database");
+                    _functions.createMessage(getApplicationContext(), getString(R.string.barcode_not_found));
                 }
             }
         }, new Response.ErrorListener()
@@ -254,7 +254,7 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
             public void onErrorResponse(VolleyError error)
             {
                 finish();
-                _functions.createMessage(getApplicationContext(), "Can't Connect To API - Check You Are Connected To The Internet");
+                _functions.createMessage(getApplicationContext(), getString(R.string.cant_connect_to_api));
             }
         });
 
@@ -312,7 +312,7 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
                 catch (JSONException e)
                 {
                     finish();
-                    _functions.createMessage(getApplicationContext(), "This Barcode Was Not Found In The Database");
+                    _functions.createMessage(getApplicationContext(), getString(R.string.barcode_not_found));
                 }
             }
         }, new Response.ErrorListener()
@@ -327,7 +327,7 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
             public void onErrorResponse(VolleyError error)
             {
                 finish();
-                _functions.createMessage(getApplicationContext(), "Can't Connect To API - Check You Are Connected To The Internet");
+                _functions.createMessage(getApplicationContext(), getString(R.string.cant_connect_to_api));
             }
         });
 

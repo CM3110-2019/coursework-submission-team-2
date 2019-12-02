@@ -193,7 +193,7 @@ public class MoviePage extends AppCompatActivity
 
         // Grab the ivMovePoster (ImageView) and set the movie poster
         ImageView movieImage = getView(R.id.ivMovePoster);
-        Picasso.get().load("https://image.tmdb.org/t/p/w185"+ moviePoster).into(movieImage);
+        Picasso.get().load(getString(R.string.image_path, moviePoster)).into(movieImage);
 
         // Grab the movieRatingBar (SimpleRatingBar) and animate it
         final SimpleRatingBar rating = getView(R.id.movieRatingBar);
