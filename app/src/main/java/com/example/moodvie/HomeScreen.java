@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
@@ -14,6 +15,7 @@ import com.example.objects.Person;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.logging.XMLFormatter;
 
 public class HomeScreen extends AppCompatActivity
 {
@@ -88,10 +90,14 @@ public class HomeScreen extends AppCompatActivity
             public void onClick(View view)
             {
                 TextView search = getView(R.id.etSearchMovie);
-                if(_functions.isBlank(search.getText().toString()))
-                    _functions.createMessage(getApplicationContext(), "Enter a search query");
+                String searchText = search.getText().toString();
+
+                if(_functions.isBlank(searchText))
+                    _functions.createMessage(getApplicationContext(), getString(R.string.fill_in_field));
                 else
-                    _functions.createMessage(getApplicationContext(), "Do something");
+                    // Create the movie grid with the filtered movies
+                    createMovieGrid(mdb.filterMovies(person.getUsername(), searchText), mdb.filterCount(person.getUsername(), searchText));
+
             }
         });
     }
@@ -102,11 +108,23 @@ public class HomeScreen extends AppCompatActivity
         super.onResume();
 
         // Create the movie grid
-        createMovieGrid(mdb.getAllData(person.getUsername()));
+        createMovieGrid(mdb.getAllData(person.getUsername()), mdb.getNumberOfRows(person.getUsername()));
     }
 
-    private void createMovieGrid(Cursor movieRows)
+
+    /**
+     * Create a grid layout that will be dynamically populated with clickable movie posters so that
+     * when the movie poster is clicked it will display the information about the movie
+     *
+     * @param movieCursor A Cursor object returned from a SQL query
+     * @param total       The number of ImageButtons needing to be created
+     */
+    private void createMovieGrid(Cursor movieCursor, int total)
     {
+        // Get the grid layout and remove the old one so a new one can be created on each resume
+        androidx.gridlayout.widget.GridLayout gridLayout = getView(R.id.gridLayout);
+        gridLayout.removeAllViews();
+
         // Create a series of ArrayLists to hold movie information
         final ArrayList<String> movieNames = new ArrayList<>();
         final ArrayList<String> movieOverviews = new ArrayList<>();
@@ -116,21 +134,14 @@ public class HomeScreen extends AppCompatActivity
         final ArrayList<String> moviePosters = new ArrayList<>();
 
         // Iterate over the Cursor object and add the movie information to corresponding ArrayLists
-        while (movieRows != null && movieRows.moveToNext()) {
-            movieNames.add(movieRows.getString(0));
-            movieOverviews.add(movieRows.getString(1));
-            movieCast.add(movieRows.getString(2));
-            movieGenres.add(movieRows.getString(3));
-            movieRatings.add(movieRows.getString(4));
-            moviePosters.add(movieRows.getString(5));
+        while (movieCursor != null && movieCursor.moveToNext()) {
+            movieNames.add(movieCursor.getString(0));
+            movieOverviews.add(movieCursor.getString(1));
+            movieCast.add(movieCursor.getString(2));
+            movieGenres.add(movieCursor.getString(3));
+            movieRatings.add(movieCursor.getString(4));
+            moviePosters.add(movieCursor.getString(5));
         }
-
-        // Get the grid layout and remove the old one so a new one can be created on each resume
-        androidx.gridlayout.widget.GridLayout gridLayout = getView(R.id.gridLayout);
-        gridLayout.removeAllViews();
-
-        // Get how many ImageButtons need to be created
-        int total = mdb.getNumberOfRows(person.getUsername());
 
         /*
          * Set up the columns and rows for the grid layout.

@@ -83,6 +83,26 @@ public class movies extends SQLiteOpenHelper
     }
 
     /**
+     * Create a filter that returns all of the movies from the database based on a substring of
+     * the movie name.
+     *
+     * For example;
+     * If there is 3 movies in the database called 'Hi', 'Hello' and 'H' and you try filter it to
+     * movies beginning with 'H' it will return all 3, if you try filter it to 'He' it will only
+     * return 'Hello'
+     *
+     * @param username               The owner of the movie
+     * @param substringMovieTitle    The substring of the movies name
+     * @return                       All the movies that begin with the movie substring
+     */
+    public Cursor filterMovies(String username, String substringMovieTitle)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + MOVIE_TABLE + " WHERE " + MOVIE_NAME + " LIKE '" + substringMovieTitle + "%'" + " and " + USERNAME + " = '" + username + "'";
+        return db.rawQuery(query, null);
+    }
+
+    /**
      * Check if a movie already exists in the table and is owned by the specified user
      *
      * @param username The username of who owns the movie
@@ -120,6 +140,20 @@ public class movies extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + MOVIE_TABLE + " WHERE " + USERNAME + " = '" + username + "'";
+        Cursor cursor = db.rawQuery(query, null);
+        return getCount(cursor);
+    }
+
+    /**
+     *
+     * @param username              The owner of the movie
+     * @param substringMovieTitle   The substring of the movie title
+     * @return                      The number of rows the user is found in
+     */
+    public int filterCount(String username, String substringMovieTitle)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + MOVIE_TABLE + " WHERE " + MOVIE_NAME + " LIKE '" + substringMovieTitle + "%'" + " and " + USERNAME + " = '" + username + "'";
         Cursor cursor = db.rawQuery(query, null);
         return getCount(cursor);
     }
