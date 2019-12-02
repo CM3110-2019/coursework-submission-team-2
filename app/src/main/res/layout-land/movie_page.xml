@@ -43,8 +43,8 @@
         style="@android:style/Widget.DeviceDefault.Light.ImageButton"
         android:layout_width="46dp"
         android:layout_height="45dp"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="8dp"
         android:background="@color/purple"
         android:scaleType="fitXY"
         android:src="@android:drawable/ic_input_add"
@@ -53,9 +53,10 @@
 
     <ImageView
         android:id="@+id/ivMovePoster"
-        android:layout_width="277dp"
-        android:layout_height="219dp"
-        android:layout_marginStart="40dp"
+        android:layout_width="172dp"
+        android:layout_height="158dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLogo"
         tools:src="@drawable/ic_launcher_background" />
@@ -64,12 +65,12 @@
         android:id="@+id/btnOwnMovie"
         android:layout_width="46dp"
         android:layout_height="45dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="8dp"
         android:background="@color/purple"
         android:scaleType="fitXY"
         android:src="@android:drawable/checkbox_off_background"
-        app:layout_constraintStart_toEndOf="@+id/btnAddMovie"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movieRatingBar" />
 
     <TextView
@@ -115,8 +116,7 @@
         android:id="@+id/movieRatingBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivMovePoster"
         app:srb_borderColor="@color/grey"

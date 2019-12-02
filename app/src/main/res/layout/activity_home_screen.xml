@@ -17,7 +17,7 @@
             android:id="@+id/etSearchMovie"
             android:layout_width="212dp"
             android:layout_height="46dp"
-            android:layout_marginLeft="52dp"
+            android:layout_marginStart="52dp"
             android:background="@color/white"
             android:ems="10"
             android:hint="@string/search_for_movie"
@@ -69,7 +69,7 @@
             android:id="@+id/searchButton"
             android:layout_width="61dp"
             android:layout_height="47dp"
-            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
             android:background="@color/pinkpurple"
             app:layout_constraintLeft_toRightOf="@+id/etSearchMovie"
             app:layout_constraintTop_toTopOf="parent"
@@ -80,7 +80,6 @@
         android:id="@+id/scrollMainPage"
         android:layout_width="match_parent"
         android:layout_height="600dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.877"
@@ -97,7 +96,4 @@
         </androidx.gridlayout.widget.GridLayout>
 
     </ScrollView>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

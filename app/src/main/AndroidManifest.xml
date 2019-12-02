@@ -25,10 +25,16 @@
         <activity android:name=".OpenCamera" />
         <activity android:name=".FaceScan" />
         <activity android:name=".BarcodeScanner" />
-        <activity android:name=".HomeScreen" />
+        <activity android:name=".HomeScreen"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+        />
+
         <activity android:name=".CreateAccount" />
         <activity android:name=".LoginScreen" />
-        <activity android:name=".MoviePage" />
+        <activity android:name=".MoviePage"
+            android:configChanges="orientation|screenSize"
+        />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

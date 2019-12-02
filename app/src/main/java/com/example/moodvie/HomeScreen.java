@@ -89,13 +89,20 @@ public class HomeScreen extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                // Get the search bar TextView and convert it into a String value
                 TextView search = getView(R.id.etSearchMovie);
                 String searchText = search.getText().toString();
 
+                /*
+                 * If the search bar is blank and the search button is clicked create a movie grid
+                 * that displays all of the movies otherwise created a movie grid with the filtered
+                 * movies
+                 */
                 if(_functions.isBlank(searchText))
-                    _functions.createMessage(getApplicationContext(), getString(R.string.fill_in_field));
+                    // Create the movie grid with all the movies owned by the user
+                    createMovieGrid(mdb.getAllData(person.getUsername()), mdb.getNumberOfRows(person.getUsername()));
                 else
-                    // Create the movie grid with the filtered movies
+                    // Create the movie grid with the filtered movies owned by the user
                     createMovieGrid(mdb.filterMovies(person.getUsername(), searchText), mdb.filterCount(person.getUsername(), searchText));
 
             }
@@ -107,7 +114,7 @@ public class HomeScreen extends AppCompatActivity
     {
         super.onResume();
 
-        // Create the movie grid
+        // Create the movie grid with all the movies owned by the user
         createMovieGrid(mdb.getAllData(person.getUsername()), mdb.getNumberOfRows(person.getUsername()));
     }
 
