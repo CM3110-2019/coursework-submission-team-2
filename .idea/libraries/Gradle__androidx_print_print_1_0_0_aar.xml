@@ -1,15 +1,15 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.print:print:1.0.0@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9cd1a9c033fa200072b53f147b56776e/annotations.zip!/" />
+      <root url="jar://C:/AndroidSDK/Gradle/caches/transforms-2/files-2.1/aa106d3e90035f70cd200eeebb6b7a89/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9cd1a9c033fa200072b53f147b56776e/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9cd1a9c033fa200072b53f147b56776e/jars/classes.jar!/" />
+      <root url="jar://C:/AndroidSDK/Gradle/caches/transforms-2/files-2.1/aa106d3e90035f70cd200eeebb6b7a89/jars/classes.jar!/" />
+      <root url="file://C:/AndroidSDK/Gradle/caches/transforms-2/files-2.1/aa106d3e90035f70cd200eeebb6b7a89/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.print/print/1.0.0/71fc2d9acf7cce6b96230c5af263268b1664914a/print-1.0.0-sources.jar!/" />
+      <root url="jar://C:/AndroidSDK/Gradle/caches/modules-2/files-2.1/androidx.print/print/1.0.0/71fc2d9acf7cce6b96230c5af263268b1664914a/print-1.0.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

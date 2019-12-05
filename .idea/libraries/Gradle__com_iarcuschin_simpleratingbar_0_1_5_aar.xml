@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.iarcuschin:simpleratingbar:0.1.5@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d1e5ec6b06512f51181ebd5ed546b3ca/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d1e5ec6b06512f51181ebd5ed546b3ca/jars/classes.jar!/" />
+      <root url="jar://C:/AndroidSDK/Gradle/caches/transforms-2/files-2.1/cee8d074a68d8e725c70a0ad4b958339/jars/classes.jar!/" />
+      <root url="file://C:/AndroidSDK/Gradle/caches/transforms-2/files-2.1/cee8d074a68d8e725c70a0ad4b958339/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.iarcuschin/simpleratingbar/0.1.5/b0a6ea5ed50012f3131d402bcd4dc41e4bab8b0d/simpleratingbar-0.1.5-sources.jar!/" />
+      <root url="jar://C:/AndroidSDK/Gradle/caches/modules-2/files-2.1/com.iarcuschin/simpleratingbar/0.1.5/b0a6ea5ed50012f3131d402bcd4dc41e4bab8b0d/simpleratingbar-0.1.5-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

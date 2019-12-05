@@ -30,14 +30,17 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.moodvie.sideMenu"
+            android:label="@string/title_activity_side_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.example.moodvie.SettingsPage" />
         <activity android:name="com.example.moodvie.OpenCamera" />
         <activity android:name="com.example.moodvie.FaceScanner" >
             <meta-data
                 android:name="com.google.firebase:firebase-ml-vision.DEPENDENCIES"
                 android:screenOrientation="portrait"
-                android:value="face" >
-            </meta-data>
+                android:value="face" />
         </activity>
         <activity android:name="com.example.moodvie.BarcodeScanner" />
         <activity

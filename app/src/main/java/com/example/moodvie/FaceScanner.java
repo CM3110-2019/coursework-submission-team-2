@@ -155,7 +155,10 @@ public class FaceScanner extends AppCompatActivity
 
                     // Setup the genre ArrayLists
                     final ArrayList<String> allGenres = new ArrayList<>(ImmutableList.of("Comedy", "Action", "Thriller", "Mystery", "Romance", "Crime", "War", "Adventure", "Animation", "Documentary", "Drama", "Musical", "Sci-Fi", "Fantasy", "Western"));
+                    final ArrayList<String> happyGenres = new ArrayList<>(ImmutableList.of("Comedy", "Action", "Thriller", "Adventure", "Animation", "Drama", "Musical", "Sci-Fi", "Fantasy", "Western"));
+                    final ArrayList<String> neutralGenres = new ArrayList<>(ImmutableList.of("Action", "Mystery", "Crime", "War", "Adventure", "Animation", "Documentary", "Drama", "Musical", "Sci-Fi", "Fantasy", "Western"));
                     final ArrayList<String> cheerUpGenres = new ArrayList<>(ImmutableList.of("Comedy", "Action", "Thriller", "Adventure", "Musical"));
+
 
                     @Override
                     public void onSuccess(List<FirebaseVisionFace> faces)
@@ -172,16 +175,21 @@ public class FaceScanner extends AppCompatActivity
                              * person in question is not in a good mood ie. Sad, Angry, Frustrated so they will
                              * be recommended a random movie genre from the 'cheerUpGenres' ArrayList.
                              *
-                             * If the smile probability is > 0.4 then a random genre will be recommended from the
-                             * 'allGenres' ArrayList because they are in some-what of a decent/good mood.
+                             * If the smile probability is > 0.4  and < 0.6 then a random genre will be recommended from the
+                             * 'neutralGenres' ArrayList because they are in some-what of a neutral mood.
+                             *
+                             * If the smile probability is > 0.6  then a random genre will be recommended from the
+                             * 'happyGenres' ArrayList because they are in some-what of a neutral mood.
                              *
                              * Once a genre has been determined then the text of the recommended TextView will be
                              * updated accordingly.
                              */
                             if (probability >= 0 && probability <= 0.4)
                                 recommended.setText(getString(R.string.recommended_movie_genre, cheerUpGenres.get((int) (Math.random() * cheerUpGenres.size()))));
+                            else if (probability > 0.4 && probability <= 0.6)
+                                recommended.setText(getString(R.string.recommended_movie_genre, neutralGenres.get((int) (Math.random() * allGenres.size()))));
                             else
-                                recommended.setText(getString(R.string.recommended_movie_genre, allGenres.get((int) (Math.random() * allGenres.size()))));
+                                recommended.setText(getString(R.string.recommended_movie_genre, happyGenres.get((int) (Math.random() * allGenres.size()))));
 
                         }
                     }

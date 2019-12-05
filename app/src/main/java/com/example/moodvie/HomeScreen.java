@@ -39,7 +39,7 @@ public class HomeScreen extends AppCompatActivity
         person = (Person) getIntent().getSerializableExtra("personClass");
 
         // Click listener for Settings button
-        getView(R.id.HomeScreen_settingButton).setOnClickListener(new View.OnClickListener()
+        getView(R.id.menu_button).setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -63,6 +63,17 @@ public class HomeScreen extends AppCompatActivity
                     startActivity(new Intent(getApplicationContext(), BarcodeScanner.class).putExtra("personClass", person));
                 else
                     _functions.createMessage(getApplicationContext(), getString(R.string.no_camera_available));
+            }
+        });
+
+        // Click listener for menu button
+        getView(R.id.menu_button).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(getApplicationContext(), sideMenu.class));
+
             }
         });
 
