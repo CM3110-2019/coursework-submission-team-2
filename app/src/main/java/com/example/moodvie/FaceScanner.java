@@ -63,6 +63,45 @@ public class FaceScanner extends AppCompatActivity
             startActivityForResult(imageTakeIntent, 101);
         }
     }
+    
+   /**
+     * Capture the result of the image taken from the camera
+     *
+     * @param requestCode The camera request code
+     * @param resultCode The result code of the camera
+     * @param data The intent returned by the camera
+     */
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // If the camera takes a photo
+        if (requestCode == 101 && resultCode == RESULT_OK)
+        {
+            try
+            {
+                // Convert the image taken to a Bitmap and set the ImageView on the activity to it
+                image = getView(R.id.bitmapImage);
+                Bitmap photo = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
+                image.setImageBitmap(photo);
+
+                // Run facial recognition on the Bitmap image
+                runFaceScanner(photo);
+            }
+            catch(Exception e)
+            {
+                // do nothing
+            }
+        }
+
+        // If the camera doesn't take a photo
+        else
+        {
+            _functions.createMessage(getApplicationContext(), "Failed To Take The Image");
+            finish();
+        }
+
+    }
 
     /**
      * Use Machine Learning to scan someones face that is found in a Bitmap image so that a smile
@@ -147,44 +186,5 @@ public class FaceScanner extends AppCompatActivity
                         }
                     }
                 });
-    }
-
-    /**
-     * Capture the result of the image taken from the camera
-     *
-     * @param requestCode The camera request code
-     * @param resultCode The result code of the camera
-     * @param data The intent returned by the camera
-     */
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // If the camera takes a photo
-        if (requestCode == 101 && resultCode == RESULT_OK)
-        {
-            try
-            {
-                // Convert the image taken to a Bitmap and set the ImageView on the activity to it
-                image = getView(R.id.bitmapImage);
-                Bitmap photo = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
-                image.setImageBitmap(photo);
-
-                // Run facial recognition on the Bitmap image
-                runFaceScanner(photo);
-            }
-            catch(Exception e)
-            {
-                // do nothing
-            }
-        }
-
-        // If the camera doesn't take a photo
-        else
-        {
-            _functions.createMessage(getApplicationContext(), "Failed To Take The Image");
-            finish();
-        }
-
     }
 }
