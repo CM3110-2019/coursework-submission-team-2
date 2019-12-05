@@ -51,4 +51,7 @@
     <string name="successfully_created_account">Successfully created the account.</string>
     <string name="failed_to_create_account">Failed to create your account.</string>
     <string name="image_path">https://image.tmdb.org/t/p/w185%s</string>
+    <string name="retake_image">Retake Image</string>
+    <string name="smile_probability">Smile Probability: %s</string>
+    <string name="recommended_movie_genre">Recommended Movie Genre: %s</string>
 </resources>

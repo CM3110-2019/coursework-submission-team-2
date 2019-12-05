@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "668784705423",
+    "firebase_url": "https://moodvie-261021.firebaseio.com",
+    "project_id": "moodvie-261021",
+    "storage_bucket": "moodvie-261021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668784705423:android:f8c260bdfc7a93d2b5d5fa",
+        "android_client_info": {
+          "package_name": "com.example.moodvie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668784705423-77h30kcinv22rqeespi7pi6ikna7rmbn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2eRDsE5954xzmU1Vgg0tRYtBOk3vXb0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668784705423-77h30kcinv22rqeespi7pi6ikna7rmbn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -77,7 +77,7 @@ public class HomeScreen extends AppCompatActivity
                  * notify them that there's no camera available to use
                  */
                 if(_functions.checkCameraHardware(getApplicationContext()))
-                    startActivity(new Intent(getApplicationContext(), FaceScan.class));
+                    startActivity(new Intent(getApplicationContext(), FaceScanner.class));
                 else
                     _functions.createMessage(getApplicationContext(), getString(R.string.no_camera_available));
             }
