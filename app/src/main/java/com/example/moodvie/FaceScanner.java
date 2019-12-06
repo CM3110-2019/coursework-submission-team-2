@@ -8,8 +8,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.common.collect.ImmutableList;
 import com.google.firebase.ml.vision.FirebaseVision;
@@ -18,6 +21,7 @@ import com.google.firebase.ml.vision.face.FirebaseVisionFace;
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetector;
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -40,6 +44,18 @@ public class FaceScanner extends AppCompatActivity
         setContentView(R.layout.activity_face_scan);
 
         openCamera();
+
+        // Create the toolbar
+        Toolbar toolbar = getView(R.id.toolbar);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                finish();
+            }
+        });
 
         // Click Listener for the retake image button
         getView(R.id.retakeImage).setOnClickListener(new View.OnClickListener()
@@ -146,9 +162,10 @@ public class FaceScanner extends AppCompatActivity
         detector.detectInImage(image).addOnSuccessListener(
                 new OnSuccessListener<List<FirebaseVisionFace>>()
                 {
-                    // Get the required TextViews
+                    // Get the required TextViews and set the default texts
                     final TextView smileProbability = getView(R.id.smileProbability);
                     final TextView recommended = getView(R.id.recommendedMovieGenre);
+
 
                     // Setup the genre ArrayLists
                     final ArrayList<String> allGenres = new ArrayList<>(ImmutableList.of("Comedy", "Action", "Thriller", "Mystery", "Romance", "Crime", "War", "Adventure", "Animation", "Documentary", "Drama", "Musical", "Sci-Fi", "Fantasy", "Western"));
@@ -163,16 +180,19 @@ public class FaceScanner extends AppCompatActivity
                         // Loop through each of the faces found and get the smile probability
                         for(FirebaseVisionFace face: faces)
                         {
+                            // Create a decimal formatter
+                            DecimalFormat df = new DecimalFormat("#.#");
+
                             // Get the faces smile probability and set the text of the smileProbability TextView
                             float probability = face.getSmilingProbability();
-                            smileProbability.setText(getString(R.string.smile_probability, Float.toString(probability)));
+                            smileProbability.setText(getString(R.string.smile_probability, df.format(probability * 100)));
 
                             /*
                              * If the smile probability is <= 0.4 then we are just going to assume that the
                              * person in question is not in a good mood ie. Sad, Angry, Frustrated so they will
                              * be recommended a random movie genre from the 'cheerUpGenres' ArrayList.
                              *
-                             * If the smile probability is > 0.4  and < 0.6 then a random genre will be recommended from the
+                             * If the smile probability is > 0.4  and <= 0.6 then a random genre will be recommended from the
                              * 'neutralGenres' ArrayList because they are in some-what of a neutral mood.
                              *
                              * If the smile probability is > 0.6  then a random genre will be recommended from the
@@ -187,6 +207,7 @@ public class FaceScanner extends AppCompatActivity
                                 recommended.setText(getString(R.string.recommended_movie_genre, neutralGenres.get((int) (Math.random() * neutralGenres.size()))));
                             else
                                 recommended.setText(getString(R.string.recommended_movie_genre, happyGenres.get((int) (Math.random() * happyGenres.size()))));
+
 
                         }
                     }
