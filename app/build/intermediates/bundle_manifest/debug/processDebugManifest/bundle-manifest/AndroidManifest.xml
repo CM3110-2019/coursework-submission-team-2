@@ -31,7 +31,6 @@
         android:theme="@style/AppTheme" >
         <activity android:name="com.example.moodvie.MainHomeScreen" />
         <activity android:name="com.example.moodvie.SettingsPage" />
-        <activity android:name="com.example.moodvie.OpenCamera" />
         <activity
             android:name="com.example.moodvie.FaceScanner"
             android:screenOrientation="portrait" >
@@ -157,11 +156,6 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
-        <provider
-            android:name="com.android.tools.ir.server.InstantRunContentProvider"
-            android:authorities="com.example.moodvie.com.android.tools.ir.server.InstantRunContentProvider"
-            android:multiprocess="true" />
     </application>
 
 </manifest>

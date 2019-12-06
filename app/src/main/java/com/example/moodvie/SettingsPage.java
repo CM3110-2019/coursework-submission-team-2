@@ -96,7 +96,6 @@ public class SettingsPage extends AppCompatActivity
         editor.putString("USER_LOGGED_IN", "").apply();
 
         // Kill the activity and re-direct the user back to the login page
-        finish();
         _functions.createMessage(getApplicationContext(), "Logged out");
         startActivity(new Intent(getApplicationContext(), LoginScreen.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
     }

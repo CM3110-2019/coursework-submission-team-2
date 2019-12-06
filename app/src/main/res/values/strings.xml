@@ -64,7 +64,7 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_face">Face Scanner</string>
-    <string name="menu_Scan_Barcode">Scan Movie Barcode</string>
+    <string name="menu_Scan_Barcode">Barcode Scanner</string>
     <string name="menu_settings">Settings</string>
     <string name="movies_owned_by">Movies Owned By %s</string>
 </resources>
