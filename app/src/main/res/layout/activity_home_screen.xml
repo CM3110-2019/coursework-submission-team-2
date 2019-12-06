@@ -6,32 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple"
-    tools:context=".HomeScreen">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-
-    <ImageButton
-        android:id="@+id/homeScreen_settingButton"
-        android:layout_width="46dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="56dp"
-        android:background="@drawable/corners"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_manage" />
+    tools:context=".MainHomeScreen">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -44,8 +19,8 @@
             android:id="@+id/etSearchMovie"
             android:layout_width="182dp"
             android:layout_height="43dp"
-            android:layout_marginLeft="56dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="48dp"
             android:background="@color/white"
             android:ems="10"
             android:hint="@string/search_for_movie"
@@ -54,66 +29,44 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/scanButton"
-            android:layout_width="158dp"
-            android:layout_height="48dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginEnd="236dp"
-            android:background="@drawable/corners"
-            android:text="@string/scan_movie"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent" />
-
-        <Button
-            android:id="@+id/faceButton"
-            android:layout_width="158dp"
-            android:layout_height="48dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/corners"
-            android:text="@string/face_scan"
-            app:layout_constraintHorizontal_bias="0.71"
-            app:layout_constraintLeft_toRightOf="@id/scanButton"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etSearchMovie" />
-
         <ImageButton
             android:id="@+id/searchButton"
             android:layout_width="82dp"
             android:layout_height="48dp"
-            android:layout_marginLeft="28dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="44dp"
             android:background="@drawable/corners"
             app:layout_constraintLeft_toRightOf="@+id/etSearchMovie"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_search_category_default" />
 
-        <Button
-            android:id="@+id/menu_button"
-            android:layout_width="48dp"
-            android:layout_height="44dp"
+        <TextView
+            android:id="@+id/movies_owned_by"
+            android:layout_width="328dp"
+            android:layout_height="45dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="76dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/corners"
-            app:layout_constraintEnd_toStartOf="@+id/etSearchMovie"
-            app:layout_constraintHorizontal_bias="1.0"
+            android:gravity="center"
+            android:text="@string/movies_owned_by"
+            android:textSize="25sp"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_menu_hamburger" />
-        />
+            app:layout_constraintTop_toBottomOf="@+id/etSearchMovie" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:id="@+id/scrollMainPage"
         android:layout_width="411dp"
         android:layout_height="564dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="1dp">
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.gridlayout.widget.GridLayout
             android:id="@+id/gridLayout"
@@ -126,4 +79,6 @@
         </androidx.gridlayout.widget.GridLayout>
 
     </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

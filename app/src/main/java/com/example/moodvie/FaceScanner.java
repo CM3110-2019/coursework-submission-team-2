@@ -96,10 +96,7 @@ public class FaceScanner extends AppCompatActivity
 
         // If the camera doesn't take a photo
         else
-        {
-            _functions.createMessage(getApplicationContext(), "Failed To Take The Image");
             finish();
-        }
 
     }
 
@@ -179,7 +176,7 @@ public class FaceScanner extends AppCompatActivity
                              * 'neutralGenres' ArrayList because they are in some-what of a neutral mood.
                              *
                              * If the smile probability is > 0.6  then a random genre will be recommended from the
-                             * 'happyGenres' ArrayList because they are in some-what of a neutral mood.
+                             * 'happyGenres' ArrayList because they are in some-what of a good mood.
                              *
                              * Once a genre has been determined then the text of the recommended TextView will be
                              * updated accordingly.
@@ -187,9 +184,9 @@ public class FaceScanner extends AppCompatActivity
                             if (probability >= 0 && probability <= 0.4)
                                 recommended.setText(getString(R.string.recommended_movie_genre, cheerUpGenres.get((int) (Math.random() * cheerUpGenres.size()))));
                             else if (probability > 0.4 && probability <= 0.6)
-                                recommended.setText(getString(R.string.recommended_movie_genre, neutralGenres.get((int) (Math.random() * allGenres.size()))));
+                                recommended.setText(getString(R.string.recommended_movie_genre, neutralGenres.get((int) (Math.random() * neutralGenres.size()))));
                             else
-                                recommended.setText(getString(R.string.recommended_movie_genre, happyGenres.get((int) (Math.random() * allGenres.size()))));
+                                recommended.setText(getString(R.string.recommended_movie_genre, happyGenres.get((int) (Math.random() * happyGenres.size()))));
 
                         }
                     }

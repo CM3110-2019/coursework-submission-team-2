@@ -2,9 +2,11 @@ package com.example.moodvie;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +58,18 @@ public class MoviePage extends AppCompatActivity
         // De-serialise the person object stored in the Intent extras
         person = (Person) getIntent().getSerializableExtra("personClass");
 
+        // Create the toolbar
+        Toolbar toolbar = getView(R.id.tvLogo);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                finish();
+            }
+        });
+
         /*
          * As the movie page is used when a barcode has been scanned or when someone clicks a movie
          * on the home screen certain buttons need to be removed.
@@ -70,7 +84,7 @@ public class MoviePage extends AppCompatActivity
         switch(Objects.requireNonNull(caller))
         {
             /*
-             * If the caller is the HomeScreen activity then delete the add movie button from the
+             * If the caller is the MainHomeScreen activity then delete the add movie button from the
              * View and set up an OnClickListener to handle the button click of the delete movie
              * button
              */
@@ -169,6 +183,7 @@ public class MoviePage extends AppCompatActivity
                             if(mdb.addData(movieTitle, movieOverview, movieCast, movieGenres, String.valueOf(movieRating), moviePoster, person.getUsername()))
                             {
                                 _functions.createMessage(getApplicationContext(), getString(R.string.added_movie));
+                                startActivity(new Intent(getApplicationContext(), HomeScreen.class).putExtra("personClass", person));
                                 finish();
                             }
                             else

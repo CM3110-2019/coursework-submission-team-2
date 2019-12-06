@@ -90,9 +90,11 @@ public class LoginScreen extends AppCompatActivity
 
                             _functions.createMessage(getApplicationContext(), getString(R.string.auth_success));
 
-                            // Start the HomeScreen activity and pass the person object an extra
-                            startActivity(new Intent(LoginScreen.this, HomeScreen.class).putExtra("personClass", person));
-                            finish();
+                            // Start the MainHomeScreen activity and pass the person object an extra
+                            Intent intent = new Intent(getApplicationContext(), HomeScreen.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            intent.putExtra("personClass", person);
+                            startActivity(intent);
                         }
 
                         // If the details don't match then notify the user

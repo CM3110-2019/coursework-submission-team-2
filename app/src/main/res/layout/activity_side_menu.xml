@@ -8,6 +8,7 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
+    <include layout="@layout/activity_home_screen"/>
     <include
         layout="@layout/app_bar_side_menu"
         android:layout_width="match_parent"
@@ -22,4 +23,7 @@
         app:headerLayout="@layout/nav_header_side_menu"
         app:menu="@menu/activity_side_menu_drawer" />
 
+
+
 </androidx.drawerlayout.widget.DrawerLayout>
+

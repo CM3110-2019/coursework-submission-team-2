@@ -7,20 +7,17 @@
     android:background="@color/purple"
     tools:context=".MoviePage">
 
-    <TextView
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/tvLogo"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/app_name"
-        android:textAlignment="center"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        android:textColor="@color/pinkpurple"
-        android:textSize="36sp"
-        android:textStyle="bold"
+        android:layout_height="51dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        />
 
     <TextView
         android:id="@+id/tvMovieTitle"
@@ -62,14 +59,14 @@
         tools:src="@drawable/ic_launcher_background" />
 
     <ImageButton
-        android:id="@+id/btnOwnMovie"
+        android:id="@+id/btnDeleteMovie"
         android:layout_width="46dp"
         android:layout_height="45dp"
         android:layout_marginStart="100dp"
         android:layout_marginTop="8dp"
         android:background="@color/purple"
         android:scaleType="fitXY"
-        android:src="@android:drawable/checkbox_off_background"
+        android:src="@android:drawable/ic_input_delete"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movieRatingBar" />
 
@@ -116,7 +113,8 @@
         android:id="@+id/movieRatingBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivMovePoster"
         app:srb_borderColor="@color/grey"

@@ -2,6 +2,7 @@ package com.example.moodvie;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,6 +34,18 @@ public class SettingsPage extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_page);
+
+        // Create the toolbar
+        Toolbar toolbar = getView(R.id.toolbar);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                finish();
+            }
+        });
 
         // De-serialise the person object stored in the Intent extras
         person = (Person) getIntent().getSerializableExtra("personClass");
@@ -85,7 +98,7 @@ public class SettingsPage extends AppCompatActivity
         // Kill the activity and re-direct the user back to the login page
         finish();
         _functions.createMessage(getApplicationContext(), "Logged out");
-        startActivity(new Intent(getApplicationContext(), LoginScreen.class));
+        startActivity(new Intent(getApplicationContext(), LoginScreen.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
     }
 
     /**

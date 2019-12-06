@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.android.gms:play-services-vision-image-label:18.0.1@aar">
     <CLASSES>
-      <root url="file://C:/AndroidSDK/Gradle/caches/transforms-2/files-2.1/4fd870ea55e0c43cb7b0ab4a311c9894/res" />
-      <root url="jar://C:/AndroidSDK/Gradle/caches/transforms-2/files-2.1/4fd870ea55e0c43cb7b0ab4a311c9894/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9d56a34a4c342ab76a420084e151756c/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9d56a34a4c342ab76a420084e151756c/res" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://C:/AndroidSDK/Gradle/caches/modules-2/files-2.1/com.google.android.gms/play-services-vision-image-label/18.0.1/7b2b904a57fae0b77a9d2faf5284e6788f3223ba/play-services-vision-image-label-18.0.1-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.gms/play-services-vision-image-label/18.0.1/7b2b904a57fae0b77a9d2faf5284e6788f3223ba/play-services-vision-image-label-18.0.1-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES />
   </library>

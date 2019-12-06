@@ -1,23 +1,36 @@
 package com.example.moodvie;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
+
+import com.example.databases.movies;
+import com.example.objects.Person;
+
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+
+import android.view.MenuItem;
+
+import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
+
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import android.view.Menu;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.databases.movies;
-import com.example.objects.Person;
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-import java.util.logging.XMLFormatter;
 
-public class HomeScreen extends AppCompatActivity
+public class HomeScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
     // Return the super class of a views ID
     private <T extends View> T getView(int id) { return super.findViewById(id);}
@@ -33,66 +46,27 @@ public class HomeScreen extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_screen);
+        setContentView(R.layout.activity_side_menu);
 
         // De-serialise the person object stored in the Intent extras
         person = (Person) getIntent().getSerializableExtra("personClass");
 
-        // Click listener for Settings button
-        getView(R.id.menu_button).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                // Start the settings page and pass the person object to it
-                startActivity(new Intent(getApplicationContext(), SettingsPage.class).putExtra("personClass", person));
-            }
-        });
+        // Set the TextView on the page to display who owns the movies
+        TextView ownedBy = getView(R.id.movies_owned_by);
+        ownedBy.setText(getString(R.string.movies_owned_by, person.getUsername()));
 
-        // Click listener for Scan Movie button
-        getView(R.id.scanButton).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                /*
-                 * If the user has a camera on their phone then open the barcode scanner otherwise
-                 * notify them that there's no camera available to use
-                 */
-                if(_functions.checkCameraHardware(getApplicationContext()))
-                    startActivity(new Intent(getApplicationContext(), BarcodeScanner.class).putExtra("personClass", person));
-                else
-                    _functions.createMessage(getApplicationContext(), getString(R.string.no_camera_available));
-            }
-        });
+        // Create the toolbar and side navigation drawer
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        // Click listener for menu button
-        getView(R.id.menu_button).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(getApplicationContext(), sideMenu.class));
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
 
-            }
-        });
-
-        // Click listener for Face Scan button
-        getView(R.id.faceButton).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                /*
-                 * If the user has a camera on their phone then open the face scanner otherwise
-                 * notify them that there's no camera available to use
-                 */
-                if(_functions.checkCameraHardware(getApplicationContext()))
-                    startActivity(new Intent(getApplicationContext(), FaceScanner.class));
-                else
-                    _functions.createMessage(getApplicationContext(), getString(R.string.no_camera_available));
-            }
-        });
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
 
         // Click listener for Search Movie button
         getView(R.id.searchButton).setOnClickListener(new View.OnClickListener()
@@ -115,7 +89,6 @@ public class HomeScreen extends AppCompatActivity
                 else
                     // Create the movie grid with the filtered movies owned by the user
                     createMovieGrid(mdb.filterMovies(person.getUsername(), searchText), mdb.filterCount(person.getUsername(), searchText));
-
             }
         });
     }
@@ -128,7 +101,6 @@ public class HomeScreen extends AppCompatActivity
         // Create the movie grid with all the movies owned by the user
         createMovieGrid(mdb.getAllData(person.getUsername()), mdb.getNumberOfRows(person.getUsername()));
     }
-
 
     /**
      * Create a grid layout that will be dynamically populated with clickable movie posters so that
@@ -222,5 +194,87 @@ public class HomeScreen extends AppCompatActivity
             GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(GridLayout.UNDEFINED, 300), GridLayout.spec(GridLayout.UNDEFINED, 300));
             gridLayout.addView(imageButton, gridParam);
         }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START))
+            drawer.closeDrawer(GravityCompat.START);
+        else
+            super.onBackPressed();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.side_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings)
+        {
+            overridePendingTransition( 0, 0);
+            startActivity(new Intent(getApplicationContext(), SettingsPage.class).putExtra("personClass", person));
+            overridePendingTransition( 0, 0);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item)
+    {
+        // Handle the button clicks on the navigation menu
+        int id = item.getItemId();
+
+        switch(id)
+        {
+            // If the home button was pressed
+            case R.id.nav_home:
+                overridePendingTransition( 0, 0);
+                startActivity(new Intent(getApplicationContext(), HomeScreen.class).putExtra("personClass", person));
+                finish();
+                overridePendingTransition( 0, 0);
+                break;
+
+            // If the face scanner button was pressed
+            case R.id.nav_face:
+                if(_functions.checkCameraHardware(getApplicationContext()))
+                {
+                    overridePendingTransition( 0, 0);
+                    startActivity(new Intent(getApplicationContext(), FaceScanner.class).putExtra("personClass", person));
+                    overridePendingTransition( 0, 0);
+                }
+                else
+                    _functions.createMessage(getApplicationContext(), getString(R.string.no_camera_available));
+                break;
+
+            // If the barcode scanner button was pressed
+            case R.id.nav_barcode:
+                if(_functions.checkCameraHardware(getApplicationContext()))
+                {
+                    overridePendingTransition( 0, 0);
+                    startActivity(new Intent(getApplicationContext(), BarcodeScanner.class).putExtra("personClass", person));
+                    overridePendingTransition( 0, 0);
+                }
+                else
+                    _functions.createMessage(getApplicationContext(), getString(R.string.no_camera_available));
+                break;
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

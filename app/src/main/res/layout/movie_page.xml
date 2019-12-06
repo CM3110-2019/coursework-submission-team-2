@@ -7,20 +7,6 @@
     android:background="@color/purple"
     tools:context=".MoviePage">
 
-    <TextView
-        android:id="@+id/tvLogo"
-        android:layout_width="match_parent"
-        android:layout_height="58dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:text="@string/app_name"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        android:textColor="@color/pinkpurple"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvMovieTitle"
@@ -38,7 +24,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ivMovePoster" />
 
     <ImageButton
-        android:id="@+id/btnAddMovie"
+        android:id="@+id/moodvieLogo"
         style="@android:style/Widget.DeviceDefault.Light.ImageButton"
         android:layout_width="46dp"
         android:layout_height="45dp"
@@ -55,6 +41,7 @@
         android:layout_width="277dp"
         android:layout_height="219dp"
         android:layout_marginStart="64dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="64dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +57,19 @@
         android:background="@color/purple"
         android:scaleType="fitXY"
         android:src="@android:drawable/ic_input_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnAddMovie"
+        style="@android:style/Widget.DeviceDefault.Light.ImageButton"
+        android:layout_width="46dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="180dp"
+        android:layout_marginBottom="28dp"
+        android:background="@color/purple"
+        android:scaleType="fitXY"
+        android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -151,6 +151,18 @@
         app:srb_numberOfStars="5"
         app:srb_starSize="40dp"
         app:srb_stepSize="0.5" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tvLogo"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
